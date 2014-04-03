@@ -1,0 +1,23 @@
+<tal:banner i18n:domain="plone">
+	<div id="portal-banner-topbar"></div>
+	<div id="portal-banner-centerbar"></div>	
+    	<!-- a metal:define-macro="portal_logo"
+           id="portal-logo"  title="Home"  accesskey="1"  href="#"
+           tal:attributes="href string:${here/portal_url}"
+           i18n:attributes="title">
+           <img width="128" height="157" src="logo.png" alt=""
+             tal:attributes="src string:${here/portal_url}/portal_skins/fischereiverband_images/logo.png" />
+         </a -->
+       <div id="portal_banner" tal:define="banner_image python:getattr(here, 'banner', None);
+                banner_url python:banner_image and banner_image.absolute_url() or ''">
+           <a href="#" tal:attributes="href string:${here/portal_url}">
+            <tal:custom condition="python:banner_url">
+                <img src="banner.png" alt="" tal:attributes="src banner_url" />
+            </tal:custom>
+            <tal:default condition="python:not banner_url">
+            <img src="banner.png" alt="" tal:attributes="src string:${here/portal_url}/fischereiverband_header.jpg"  />
+            </tal:default>
+          </a>
+        </div>
+	<div id="portal-banner-bottombar"></div>
+</tal:banner>

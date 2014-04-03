@@ -1,0 +1,60 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+    <head>
+        <metal:javascript_head fill-slot="javascript_head_slot">            <script src="jquery.lightbox-0.5.js" type="text/javascript"></script>        </metal:javascript_head>
+        
+        <metal:css fill-slot="style_slot">            <link href="jquery.lightbox-0.5.css" rel="stylesheet" type="text/css" />        </metal:css>
+    </head>
+    <body>
+         <metal:main fill-slot="main">
+            <tal:item define="item_id python:context.REQUEST.get('obj_id','');
+                             item python:view.queryCatalog(item_id,review_state='published')">
+           <tal:cons condition="item">
+              <div class="termine_item_title">
+                   <h1 class="documentFirstHeading" tal:content="python:item.Title()">Title</h1>
+               </div>
+               <img src="#" class="tileImage"
+                   tal:condition="python: item.getImage()"
+                   tal:attributes="title item/pretty_title_or_id;
+                                   src python: item.absolute_url()+'/image_thumb'" />
+               <div class="termine_item_description"
+                   tal:content="structure python: item.getShortText()">description
+               </div>
+               <div class="termine_item_links_text"
+                   tal:condition="python: item.getLinksText()"
+                   tal:content="structure python: item.getLinksText()">text
+               </div>
+               <div class="termine_item_files_title"
+                   tal:condition="python:view.showFiles(item)"
+                   i18n:translate="termine_item_online_fomualar">
+                   Online Fomualar
+                   <div class="termine_item_first_file">
+                       <a href="#"
+                           tal:condition="python:view.checkExistFirstFile(item)"
+                           tal:attributes="href string:${context/absolute_url}/at_download/firstFile"
+                           i18n:translate="termine_item_first_file">Aususschreibung als PDF</a></div>
+                   <div class="termine_item_second_file">
+                       <a href="#"
+                           tal:condition="python:view.checkExistSecondFile(item)"
+                           tal:attributes="href string:${context/absolute_url}/at_download/secondFile"
+                           i18n:translate="termine_item_second_file">Anmeldung als Word oder PDF</a></div>
+               </div>
+               <div class="termine_item_text"
+                   tal:content="structure python:item.getText()">text
+               </div>
+               <div class="termine_item_back_link">
+                   <a href="#"
+                       tal:attributes="href python:view.getParentLink()"
+                       i18n:translate="back_to_up">Back to overview</a>
+               </div>
+            </tal:cons>
+            <tal:notitem condition="not: item">
+                <tal:redirect tal:content="view/redirectToParent" />
+            </tal:notitem>
+
+            </tal:item>
+         </metal:main>
+    </body>
+</html>

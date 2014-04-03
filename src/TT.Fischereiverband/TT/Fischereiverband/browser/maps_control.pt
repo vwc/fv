@@ -1,0 +1,41 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="plone">
+
+<head>
+    <metal:noborder fill-slot="top_slot"
+                 tal:define="dummy python:request.set('disable_border',1)" />
+</head>
+
+<body>
+<metal:main fill-slot="main"
+    tal:define="api_key python:context.FischereiverbandTool.maps_api_key;
+                company_address python:context.FischereiverbandTool.maps_company_address">
+    <h1 class="documentFirstHeading"
+        i18n:translate="heading_admin_control">Admin control </h1>
+    <table class="listing">
+        <form method="post" action="request/URL"
+            tal:attributes="action string:.">
+        <tr>
+            <td i18n:translate="">Company address: </td>
+            <td><input type="text" name="company_address" value="" class="text"
+                tal:attributes="value company_address" /></td>
+        </tr>
+        <tr>
+            <td i18n:translate="">API Key: </td>
+            <td><input type="text" name="api_key" value="" class="text"
+                tal:attributes="value api_key"/></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" name="maps_control_submit:method" value="Save" /></td>
+        </tr>
+        </form>
+    </table>
+</metal:main>
+</body>
+</html>

@@ -1,0 +1,257 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="plone">
+  <head><title></title></head>
+  <body>
+    <tal:def tal:define="global last_num python:0;">
+    <div metal:define-macro="image_view_single">
+      
+	      <metal:label define-slot="widget_label" />
+	      <tal:define tal:define="unit nocall:accessor;
+	                          showLink showLink|python:1;">
+	        <tal:block tal:define="size unit/get_size | python:unit and len(unit) or 0;
+	                           icon unit/getBestIcon | nothing;
+	                           filename unit/filename | nothing"
+	                   condition="python:size &gt; 0">
+                <div class="images_widget_image_preview"> 
+                    <img src="#" tal:attributes="src string:${accessor/absolute_url}_thumb" />
+                </div>
+	          <tal:link condition="showLink">
+	              <a href="" tal:attributes="href string:${here/absolute_url}/at_download/$fieldName">
+	                <img tal:condition="icon" src=""
+	                     tal:attributes="src string:${here/portal_url}/$icon"/>
+	                <tal:filename tal:replace="filename | fieldName"/>
+	              </a>
+	              <span class="discreet">
+	                  &mdash;
+	                  <span tal:replace="python:here.lookupMime(field.getContentType(here))">ContentType</span>,
+	                  <tal:size content="python:'%sKb' % (size / 1024)">0Kb</tal:size>
+	              </span>
+	          </tal:link>
+	          <span tal:condition="not:showLink">
+	              <img tal:condition="icon" src=""
+	                   tal:attributes="src string:${here/portal_url}/$icon"/>
+	              <tal:filename tal:replace="filename | fieldName"/>
+	              <span class="discreet">
+	                  <span tal:content="python:here.lookupMime(field.getContentType(here))">ContentType</span> &mdash;
+	                  <tal:size content="python:'%s KB' % (size / 1024)">0 KB</tal:size>
+	              </span>
+	          </span>
+			</tal:block>
+	    </tal:define>
+    </div>
+    
+    <metal:define define-macro="image_edit"
+        tal:define="imageObjs python:here.objectItems();
+                    showLink python:0;">
+        <input type="hidden" name="customImageCount"
+    		tal:attributes="value python:len(imageObjs)" />
+        <div tal:repeat="imageObj imageObjs">
+            <tal:imageObj 
+                tal:define="imageObj python:imageObj[1];
+                            access accessor;
+                            accessor nocall:imageObj/image|nocall:imageObj;
+                            index repeat/imageObj/index;
+                            last_num repeat/imageObj/length;
+                            imgID python:imageObj.id;">
+                <metal:block use-macro="here/ImagesMacro/macros/image_view_single" />
+                <!--input type="radio" name="defaultImage" value="index" 
+                       tal:attributes="value index;
+                                       checked python:test(access== imgID, 'checked', None);"
+                       /> 
+               <lable i18n:translate="set_default_image"> Set to default view.</lable -->
+                <div tal:condition="accessor" style="padding-top:1em;"
+		           tal:define="unit accessor;
+      		                       size unit/get_size | python:unit and len(unit) or 0;">
+      		       
+      		        <tal:hide_if_no_file condition="size">
+      		            <!-- these complex buttons have no reson to be here if there is not a file already uploaded -->
+      		            <input class="noborder"
+      		                   type="hidden"
+      		                   value=""
+      		                   tal:attributes="name string:${fieldName}_${index}_id;
+      		                                    value imageObj/id"/>
+      		            <input class="noborder"
+      		                   type="radio"
+      		                   value="nochange"
+      		                   tal:attributes="checked python:test(size!=0, 'checked', None);
+      		                                   name string:${fieldName}_${index}_delete;
+      		                                   id string:${fieldName}_${index}_nochange;
+      		                                   onclick string:document.getElementById('${fieldName}_${index}_image').disabled=true;"/>
+      		             <label for=""
+      		                    tal:attributes="for string:${fieldName}_${index}_nochange;"
+      		                    i18n:translate="nochange_image">
+      		                    Keep existing image
+      		             </label>
+      		             <br />
+      		             <tal:delete tal:condition="python: not field.required">
+      		                <input class="noborder"
+      		                       type="radio"
+      		                       value="delete"
+      		                       tal:attributes="name string:${fieldName}_${index}_delete;
+      		                                       id string:${fieldName}_${index}_delete;
+      		                                       onclick string:document.getElementById('${fieldName}_${index}_image').disabled=true;"
+      		                 />
+      		                 <label for=""
+      		                        tal:attributes="for string:${fieldName}_${index}_delete;"
+      		                        i18n:translate="delete_image">
+      		                        Delete current image
+      		                 </label><br />
+      		             </tal:delete>
+      		              <input class="noborder"
+      		                     type="radio"
+      		                     value=""
+      		                     onclick=""
+      		                     tal:attributes="checked python:test(size==0, 'checked', None);
+      		                                     name string:${fieldName}_${index}_delete;
+      		                                     id string:${fieldName}_${index}_upload;
+      		                                     onclick string:document.getElementById('${fieldName}_${index}_image').disabled=false"/>
+      		
+      		           <label for=""
+      		                  tal:attributes="for string:${fieldName}_${index}_upload;"
+      		                  i18n:translate="upload_image">
+      		                  Replace with new image:
+      		           </label>
+      		       </tal:hide_if_no_file>
+      		       <div style="padding-left:1.5em;padding-top:0.5em;">
+      		           <metal metal:use-macro="here/ImagesMacro/macros/image_upload_replace"/>
+      		       </div>
+      		     </div>
+            </tal:imageObj>
+        </div>
+        <hr class="images_widget_horizontal_line" />
+        <div>
+            <metal metal:use-macro="here/ImagesMacro/macros/image_upload"/>
+        </div>
+    </metal:define>
+    
+    <metal:define define-macro="image_upload_replace"
+           tal:define="unit accessor;
+                       size unit/get_size | python:unit and len(unit) or 0;">                        
+
+    	<div> 
+    	   <input type="file" class="file"
+				tal:attributes="name string:${fieldName}_${index}_image;
+                                id string:${fieldName}_${index}_image;" />
+    	</div>
+		<br />
+    
+        <script type="text/javascript" 
+	        tal:define="isDisabled python:test(accessor and size!=0, 'true', 'false')"
+                tal:content="string: document.getElementById('${fieldName}_${index}_image').disabled=$isDisabled;">
+        </script>
+    </metal:define>
+    
+    <metal:define define-macro="image_upload">
+        <div id="toCopy">
+			<div class="field" i18n:domain="cr"
+		    	tal:define="error errors/imageFile| nothing;"
+                         tal:attributes="class python:test(error, 'field error', 'field')">
+		    	<label for="image" i18n:translate="label_file_upload_bid">
+		    	     This file is not available for the public and only to download
+	    	     </label>
+		    	<div class="formHelp"
+		    		i18n:translate="select_the_file_upload">
+		    		Upload any format less that 5MB in size
+		    	</div>
+		    	<div tal:content="error">Validation error output</div>
+                <!-- input type="radio" class="imgDefaul" name="defaultImage" value="0" 
+                       tal:on-error="string:"
+                       tal:attributes="value last_num;"/>
+                       
+                 <lable i18n:translate="set_default_image"> Set Image-Anzeige standardmäßig in der Liste alle Nachrichten </lable -->
+
+            	<div > 
+            	   <input type="file" class="file" 
+        					name="fileDynamic:list"
+        					tal:attributes="name string:${fieldName}:list;" />
+            	</div>
+				<br />
+			</div>
+		</div>
+		<div id="insertDiv"></div>
+		<SCRIPT LANGUAGE="JavaScript">
+		
+		    function getElementsByClassName(oElm, strTagName, strClassName){            	var arrElements = (strTagName == "*" && oElm.all)? oElm.all : oElm.getElementsByTagName(strTagName);            	var arrReturnElements = new Array();            	strClassName = strClassName.replace(/\-/g, "\\-");            	var oRegExp = new RegExp("(^|\\s)" + strClassName + "(\\s|$)");            	var oElement;            	for(var i=0; i<arrElements.length; i++){            		oElement = arrElements[i];            		if(oRegExp.test(oElement.className)){            			arrReturnElements.push(oElement);            		}            	}            	return (arrReturnElements)            }
+		    
+			function clone(myObj)
+			{
+				if(typeof(myObj) != 'object') return myObj;
+				if(myObj == null) return myObj;
+			
+				var myNewObj = new Object();
+			
+				for(var i in myObj)
+					myNewObj[i] = clone(myObj[i]);
+			
+				return myNewObj;
+			}
+		    function addAnotherImage(){
+		        var tocopy = document.getElementById('toCopy');
+		        var thecopy = tocopy.cloneNode(true);
+		        var inputs = getElementsByClassName(thecopy,'input','text')
+                var inputsFile = getElementsByClassName(thecopy,'input','file')
+
+		        var insertDiv = document.getElementById('insertDiv');
+		        var insertInput = insertDiv.cloneNode(true);
+		        var insertInputs = getElementsByClassName(insertInput,'input','text')
+                inputsFile[0].value="";
+                if (inputs[0]) {
+                    var newId = 'InputFileText_' + insertInputs.length;
+                    inputs[0].id = newId;
+                    inputs[0].value = '';
+                    if (inputsFile[0]) {
+                        inputsFile[0].inputText = inputs[0];
+                        inputsFile[0].onchange = function () {
+                            this.inputText.value = this.value;
+                        }
+                    }
+                }
+		        insertDiv.appendChild(thecopy);
+		        var radios = getElementsByClassName(thecopy,'input','imgDefaul')
+		        var val = parseInt(radios[0].value) +1 ;
+		        radios[0].value = val;
+		        console.log(radios[0].value);
+		    }
+		</SCRIPT>
+		<input type="button" i18n:domain="cr"
+               value="Add Another File"
+               onClick=""
+               class="tt_add_file_context"
+               i18n:attributes="value add_another_file"
+               tal:attributes="onClick string:javascript:addAnotherImage()" />
+		
+    </metal:define>
+    
+    
+    <metal:view_macro define-macro="view" 
+        tal:define="value accessor;">
+        view
+    </metal:view_macro>
+
+    <div metal:define-macro="edit">
+        <div metal:use-macro="field_macro | context/widgets/field/macros/edit">
+            <div metal:fill-slot="widget_body">
+                <metal:use use-macro="here/ImagesMacro/macros/image_edit" />
+            </div>
+        </div>
+    </div>	
+
+    <div metal:define-macro="search">
+      <div metal:use-macro="context/widgets/lines/macros/edit"></div>
+    </div>
+
+    <metal:hidden_macro define-macro="hidden">
+        <div id = "DataContainer">
+            <input type="hidden"
+                    tal:attributes="name string:${fieldName};
+                                    value value;"
+                    tal:repeat="value accessor"/>
+        </div>    
+    </metal:hidden_macro>
+  </tal:def>  
+  </body>
+</html>
+

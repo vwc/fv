@@ -1,0 +1,50 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="TT.Fischereiverband">
+
+    <browser:viewlet
+        name="plone.logo"
+        manager="plone.app.layout.viewlets.interfaces.IPortalHeader"
+        class="plone.app.layout.viewlets.common.LogoViewlet"
+        template="browser/banner.pt"
+        permission="zope2.View"
+        />
+
+   <browser:viewlet
+        name="plone.footer"
+        manager="plone.app.layout.viewlets.interfaces.IPortalFooter"
+        class="plone.app.layout.viewlets.common.GlobalSectionsViewlet"
+        template="browser/footer.pt"
+        permission="zope.Public"
+        />
+        
+    <browser:viewlet
+        name="plone.site_actions"
+        manager="plone.app.layout.viewlets.interfaces.IPortalFooter"
+        class="plone.app.layout.viewlets.common.SiteActionsViewlet"
+        template="browser/site_actions.pt"
+        permission="zope2.View"
+        />
+    <browser:viewlet
+        name="plone.personal_bar"
+        manager="plone.app.layout.viewlets.interfaces.IPortalHeader"
+        class="plone.app.layout.viewlets.common.PersonalBarViewlet"
+        template="browser/personal_bar.pt"
+        permission="zope2.View"
+        />
+
+    <browser:page
+      for="plone.app.layout.navigation.interfaces.INavigationRoot"
+      name="user-information"
+      class=".browser.personalpreferences.UserDataPanel"
+      permission="zope2.ManageUsers"
+      />
+
+    <adapter 
+      provides=".browser.interfaces.IUserDataSchema"
+      for="plone.app.layout.navigation.interfaces.INavigationRoot"
+      factory=".browser.personalpreferences.UserDataPanelAdapter"
+      />
+
+</configure>

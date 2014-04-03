@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<portlets>
+    <portlet 
+        addview="TT.FischereiverbandNews.portlets.News"
+        title="FischereiverbandNews: News items"
+        description="An example portlet which can render a listing of recently changed news.">
+        <for interface="plone.app.portlets.interfaces.IColumn" /> 
+        <for interface="plone.app.portlets.interfaces.IDashboard" /> 
+    </portlet>
+  
+    <portlet 
+        addview="TT.FischereiverbandNews.portlets.Events"
+        title="FischereiverbandNews: Events items"
+        description="A portlet which can render a listing of recent events">
+        <for interface="plone.app.portlets.interfaces.IColumn" /> 
+        <for interface="plone.app.portlets.interfaces.IDashboard" /> 
+    </portlet>
+    
+</portlets>

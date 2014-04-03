@@ -1,0 +1,71 @@
+.uploadifyQueueItem {
+    font: 11px Verdana, Geneva, sans-serif;
+    background-color: #F5F5F5;
+    border: 3px solid #DBDBDB;
+    padding: 10px;
+    width: 300px;
+}
+
+.uploadifyError {
+    border: 2px solid #FBCBBC !important;
+    background-color: #FDE5DD !important;
+}
+
+.uploadifyQueueItem .cancel {
+    float: right;
+}
+
+.uploadifyProgress {
+    background-color: #FFFFFF;
+    border-top: 1px solid #808080;
+    border-left: 1px solid #808080;
+    border-right: 1px solid #C5C5C5;
+    border-bottom: 1px solid #C5C5C5;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.uploadifyProgressBar {
+    background-color: #0099FF;
+    width: 1px;
+    height: 3px;
+}
+
+#uploader {
+    margin-bottom: 15px;
+}
+
+#uploadify-upload {
+    text-decoration: none;
+    cursor: pointer;
+}
+#uploadify-clear-queue {
+    margin-left: 10px;
+    text-decoration: none;
+    cursor: pointer;
+}
+#uploadify object { 
+    position:absolute;
+    left:0; 
+    right:0;  
+    width:100%        
+}   
+#uploadify {
+    background:none repeat scroll 0 0 #DBDBDB;
+    border:1px solid #464646;
+    height:23px;
+    padding-left:5px;
+    padding-top:5px;
+    width:100px;        
+} 
+#upload_button {
+    margin-top:10px;
+}
+#uploaderQueue {
+    margin-left:-7px;
+    margin-top:40px;
+    position:relative;
+    z-index:222;      
+}
+
+

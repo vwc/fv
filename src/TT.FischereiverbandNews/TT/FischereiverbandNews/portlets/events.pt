@@ -1,0 +1,55 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      tal:omit-tag="">
+<dl class="portlet portletEvents"
+    i18n:domain="plone">
+
+    <dt class="portletHeader">
+        <span class="portletTopLeft"></span>
+        <div class="portletsEventHeader" i18n:translate="box_events">
+            Termine
+        </div>
+        <span class="portletTopRight"></span>
+    </dt>
+
+    <tal:events tal:define="toLocalizedTime nocall:context/@@plone/toLocalizedTime;
+                            DateTime python:modules['DateTime'].DateTime"
+                tal:repeat="obj view/published_events">
+    <dd class="portletItem"
+        tal:define="oddrow repeat/obj/odd;
+                    plone_view context/@@plone;
+                    getIcon nocall:plone_view/getIcon;
+                    item_icon python:getIcon(obj);
+                    item_startdate python:view.getDatumFomat(obj.start);"
+        tal:attributes="class python:oddrow and 'portletItem even' or 'portletItem odd'">
+        <a href="#"
+           class="portletEventItemTitle"
+           tal:attributes="href obj/getURL;
+                           title obj/Description">
+            <span tal:replace="obj/pretty_title_or_id">
+             Some Event
+            </span>
+        </a>    
+        <span class="portletEventItemDate">
+            <span
+                tal:content="string:${item_startdate}">
+            May 5
+            </span>
+        </span>
+    </dd>
+    </tal:events>
+
+    <dd class="portletFooter"
+        tal:define="parentObj python:view.getViewMoreLink()">
+        <a href="" class="tile"
+           tal:condition="parentObj"
+           tal:attributes="href python:parentObj.getObject().absolute_url()"
+           i18n:translate="view_more">
+                View more
+        </a>
+        <span class="portletBottomLeft"></span>
+        <span class="portletBottomRight"></span>
+    </dd>
+</dl>
+</html>

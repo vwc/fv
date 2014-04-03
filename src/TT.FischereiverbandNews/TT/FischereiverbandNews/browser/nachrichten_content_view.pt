@@ -1,0 +1,93 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+    <head>
+        <metal:javascript_head fill-slot="javascript_head_slot">            <script src="jquery.lightbox-0.5.js" type="text/javascript"></script>        </metal:javascript_head>
+        
+        <metal:css fill-slot="style_slot">            <link href="jquery.lightbox-0.5.css" rel="stylesheet" type="text/css" />        </metal:css>
+    </head>
+    <body>
+
+        <metal:main fill-slot="main">
+           <tal:item define="item_id python:context.REQUEST.get('obj_id','');
+                             item python:view.queryCatalog(item_id,review_state='published')">
+                <tal:cons condition="item">
+                    <div class="nachrichten_item_title">
+                        <h1 class="documentFirstHeading">
+                            <span tal:content="python:item.Title()"></span>
+                            <br />
+                            <span class="nachrichten_item_sub_title" tal:content="python:item.getSubTitle()"/>
+
+                        </h1>
+                    </div>
+                    <div class="nachrichten_item_description"
+                        tal:content="structure python:item.getShortText()">description
+                    </div>
+                    <br>
+                    <div class="nachrichten_item_text"
+                        tal:content="structure python:item.getText()">text
+                    </div>
+                    <br>
+                    <div class="nachrichten_item_back_link">
+                        <a href="#"
+                            tal:attributes="href python:view.getParentLink()"
+                            i18n:translate="back_to_up">Back to up</a>
+                    </div>
+                    <br>    
+                    
+                    <script type="text/javascript">
+                        jq(function() {
+                            jq('#gallery a').lightBox();
+                        });
+                    </script>
+                   	<style type="text/css">
+                       	#gallery {
+                       		/*background-color: #444;*/
+                       		padding: 10px;
+                       		width: 100%;
+                       	}
+                       	#gallery ul { list-style: none; }
+                       	#gallery ul li { display: inline; }
+                       	#gallery ul img {
+                       		border: 5px solid #3e3e3e;
+                       		border-width: 5px 5px 5px;
+                       		display:inline;
+                       	}
+                       	#gallery ul a:hover img {
+                       		border: 5px solid #fff;
+                       		border-width: 5px 5px 5px;
+                       		color: #fff;
+                       	}
+                       	#gallery ul a:hover { color: #fff; }
+                	</style>
+                    <div tal:define="images python:view.getImages(item);
+                                    Batch python:modules['Products.CMFPlone'].Batch;
+                                    default_page_size python:27;
+                                    page_size default_page_size;
+                                    page_size request/psize | page_size;
+                                    b_size page_size; 
+                                    b_start python:0;
+                                    b_start request/b_start | b_start;
+                                    batch python:Batch(images, b_size, int(b_start), orphan=1)">
+                       <div id="gallery">
+                        <ul>
+                            <li tal:repeat="image batch">
+                                <a href="#"
+                                    tal:attributes="href string:${image/absolute_url}/image;" >
+                                    <img src="#" class="nachrichten_item_images_thumb" 
+                                        tal:attributes="src string:${image/absolute_url}/image_thumb" />
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="nachrichten_paging_bar" metal:use-macro="here/batch_macros/macros/navigation" /> 
+                 </div>
+                </tal:cons>
+                <tal:notitem condition="not: item">
+                    <tal:redirect tal:content="view/redirectToParent" />
+                </tal:notitem>
+           </tal:item>
+        </metal:main>
+    </body>
+</html>

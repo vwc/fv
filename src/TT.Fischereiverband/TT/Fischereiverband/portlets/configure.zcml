@@ -1,0 +1,14 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:plone="http://namespaces.plone.org/plone">
+    i18n_domain="TT.Fischereiverband">
+    
+    <include package="plone.app.portlets"  />
+    
+    <plone:portletRenderer
+        portlet="plone.app.portlets.portlets.navigation.INavigationPortlet"
+        layer="TT.Fischereiverband.browser.interfaces.IFischereiverband"
+        class=".navigation.TT_NavigationRenderer" 
+        />
+</configure>

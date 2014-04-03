@@ -1,0 +1,482 @@
+/* @group Navigation portlet */
+
+
+dl.portlet ul.navTree li a:focus,
+dl.portlet ul.navTree li a:hover {
+
+}
+
+
+dl.portlet ul.navTreeLevel1 .navTreeItem {
+	padding-left: 0.5em;
+	line-height: 2em;
+}
+
+/* @group Portlets */
+
+dl.portlet {
+	font-size: 100%;
+}
+#portal-column-one dl.portlet {
+    margin-top: -1px !important;
+}
+
+dl.portletError {
+    background-color: #FFA500;
+}
+
+div.portletAssignments {
+	font-size: 0.8em;
+	line-height: 2em;
+}
+
+div.portletAssignments .managedPortletActions {
+	float: right;
+}
+div.portletAssignments .managedPortletActions a {
+	margin: 0 0.25em;
+	border: none;
+}
+
+dl.portlet dt a:link,
+dl.portlet dt a:visited,
+dl.portlet dt a:focus,
+dl.portlet dt a:hover {
+	color: black;
+	display: block;
+	border: none;
+}
+
+dl.portlet dd.portletItem,
+dl.portletError dd {
+	color:#111111;
+    font-family:Helvetica;
+    font-size:11px;
+    padding:25px 0 0;
+    min-height:22px;
+}
+
+
+
+/*div.managePortletsLink,
+a.managePortletsFallback {
+	text-align: center;
+	padding: 0.25em 0.5em;
+	font-size: 80%;
+	margin: 0 auto 1em;
+	background: #ddd;
+	border-radius: 0.5em;
+	-webkit-border-radius: 0.5em;
+	-moz-border-radius: 0.5em;
+}*/
+
+div.managePortletsLink, a.managePortletsFallback {
+    -webkit-border-radius: 0.5em;
+    -moz-border-radius:0.5em 0.5em 0.5em 0.5em;
+    background:none repeat scroll 0 0 #DDDDDD;
+    font-size:80%;
+    padding:0.25em 0.5em;
+    text-align:center;
+    width:152px;
+    margin-bottom:5px;
+}
+
+a.managePortletsFallback {
+    display:inline-block; /* in order for our vertical margins to work on inline element */
+}
+#content a.managePortletsFallback {
+	display: block;
+	border-bottom: none !important;    	
+}
+
+#portlet-prefs a {
+	border: none;
+	line-height: 2em;
+}
+
+
+.managedPortlet {
+    margin: 0.8em 0;
+}
+
+.blockedPortlet .portletHeader {
+    border: 1px dashed #ddd;
+    margin: -1px;
+    background: none !important;
+}
+
+.blockedPortlet .portletHeader a {
+    color: #666;
+}
+
+.blockedPortlet .portletBlockedMessage {
+    color: white;
+    display: inline;
+}
+
+.portletCalendar {
+    width: 100%;
+    margin: 1px 0 1em 0;
+}
+
+.portletCalendar dt {
+    background-color: #eee;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1.6em;
+    border-bottom: none;
+}
+
+.portletCalendar dd {
+    margin: 0;
+    padding: 0;
+}
+
+.portletCalendar dt a#calendar-previous {
+    float: left;
+    padding: 0 1em;
+    margin: 0 -.5em;
+}
+
+.portletCalendar dt a#calendar-next {
+    float: right;
+    padding: 0 1em;
+    margin: 0 -.5em;
+}
+
+*+html .portletCalendar dt a#calendar-next {
+    float: right;
+    padding: 0 .5em;
+    margin: 0 -.5em;
+    position: absolute;
+}
+
+.portletCalendar a, .portletCalendar a:focus,
+.portletCalendar a, .portletCalendar a:hover {
+    text-decoration: none;
+}
+
+.ploneCalendar {
+    border-spacing: 0;
+    width: 100%;
+}
+
+.ploneCalendar a {
+    text-decoration: none;
+    border-bottom: none !important;
+}
+
+.ploneCalendar td {
+    background-color: transparent;
+    width: 14%;
+    text-align: center;
+    padding: 2px;
+}
+
+.ploneCalendar .weekdays th {
+    background-color: #eee;
+    text-align: center;
+    padding: 2px;
+    font-weight: normal;
+}
+
+.ploneCalendar .event {
+    background-color: #eee;
+    font-weight: bold;
+}
+
+.ploneCalendar .todayevent {
+    background-color: #eee;
+    border: 2px solid #205C90;
+    font-weight: bold;
+}
+
+.ploneCalendar .todaynoevent {
+    border: 2px solid #205C90;
+}
+
+.portletItemDetails { 
+	font-size: 85%;
+	padding-top: .5em;
+    line-height: 1.5em;
+    margin-left: 1em;
+    display: block;
+} 
+
+/* TT custom */
+
+dl.portlet dt,
+div.portletAssignments div.portletHeader {
+    background:#DDDDDD;
+    color:#F09E00;
+    font-size:100%;
+    line-height:normal;	
+    font-weight:normal;
+}
+
+dl.portlet ul.navTreeLevel0 > .navTreeItem {
+	padding-left: 18px;
+	border-bottom: 4px #fff solid;
+	line-height: 29px;
+	background:url(menu-bg.png);
+}
+dl.portlet ul.navTreeLevel0 > .navTreeItem img {
+	display: none;
+}
+dl.portlet ul.navTreeLevel1 {
+	margin-left: -18px;
+	margin-bottom: -9px;
+	background: #fff;
+}
+dl.portlet ul.navTreeLevel1 .navTreeItem {
+	/*padding-left: 52px;*/ /*17 + 35*/
+	line-height: 31px;	
+	padding-left: 30px;
+}
+
+/* first item of navigation 1 */
+dl.portlet ul.navTreeLevel1 .navTreeItem.first {	
+	/*background: url(nav-1-0.png) no-repeat;*/
+	border-top:0px solid #DBDBDB;
+}
+dl.portlet ul.navTreeLevel1 .navTreeItem {	
+	/*background: url(nav-1-0.png) no-repeat;*/
+	border-top:5px solid #DBDBDB;
+}
+
+/* navigation 1 hover */
+dl.portlet ul.navTreeLevel1 .navTreeItem:hover {	
+ 	/*background: url(nav-1-0-selected.png) no-repeat;*/
+}
+/* navigation 1 selected */
+dl.portlet ul.navTree.navTreeLevel1 li.navTreeCurrentNode,
+dl.portlet ul.navTreeLevel1 li.navTreeCurrentNode {
+    /*background: url(nav-1-0-selected.png) no-repeat;*/
+}
+
+/* navigation 2 selected */
+
+dl.portlet ul.navTree ul.navTreeLevel2 .navTreeItem {
+    background:none !important;
+    margin-left:20px;
+    margin-left:-40px;
+}
+
+
+dl.portlet a:link, dl.portlet a:visited {
+	color: #464646;
+}
+
+dl.portlet a:visited {
+	/*color: #f09e00 !important;*/
+}
+
+dl.portlet a:hover {
+	color: #f09e00 !important;
+}
+
+dd.portletItem {
+	padding-left: 18px;
+}
+dl.portletNavigationTree dt.portletHeader {
+	display: none; /* The nav portlet title is useless :) */
+}
+
+dl.portlet ul.navTree li a {
+	border: none;
+	display: block;
+	text-transform:uppercase;
+}
+
+dl.portlet ul.navTree li a:hover {
+
+}
+
+dl.portletNavigationTree dd.portletItem {
+	padding: 0;
+}
+
+dl.portlet ul.navTree .navTreeCurrentItem {
+	font-family: Helvetica;
+ 	font-size: 11px;
+ 	color: #f09e00 !important;
+}
+.portletNavigationTree {
+	width: 200px;
+    font-family: Helvetica;
+ 	font-size: 11px !important;
+ 	color: #464646 !important;
+
+}
+
+dl.portlet ul.navTreeLevel0 > li.navTreeCurrentNode {
+    background:url("menu-selected.png") repeat scroll 0 0 transparent !important;
+}
+dl.portlet ul.navTreeLevel0 > li.navTreeCurrentNode a.navTreeCurrentItem {
+    color:#FFFFFF !important;
+}
+dl.portlet ul.navTreeLevel1 > li.navTreeItem  a.navTreeCurrentItem {
+    color:#464646 !important;
+}
+dl.portlet ul.navTreeLevel1 > li.navTreeCurrentNode a.navTreeCurrentItem {
+    color:#F09E00 !important;
+}
+
+/***portlet news **/
+
+#portal-column-two .portlet,
+.portletFooter {
+	width: 200px;
+}
+ 
+#portal-searchbox {
+    border-bottom: 5px solid #dbdbdb;
+    padding-bottom:25px;
+    width:200px;
+}
+dl.portletEvents > dt.portletHeader,
+dl.portletNews > dt.portletHeader {
+    margin-top: 20px;
+	width: 100%;
+	height: 56px;
+	background: none !important;
+}
+
+dl.portletNews > dd.portletItem {
+    padding-top:5px !important;
+    
+}
+.portletItemNewsTime {
+    color:#a3a3a3;
+}
+
+dl.portletNews > dt.portletHeader > .portletTopRight {
+    background:url("item-nachrichten.png") no-repeat scroll 0 0 transparent;
+    height:100px;
+    margin-left:130px;
+    margin-top:-33px;
+    position:absolute;
+    width:58px;
+}
+.portletsNewsHeader,
+.portletsEventHeader,
+dl.portletEvents > dt.portletHeader a,
+dl.portletNews > dt.portletHeader a {
+    color: #f09e00 !important;
+    font-family: Georgia,Arial,FreeSans,sans-serif;
+    font-size: 24px;
+ 	border-bottom: 1px solid #a3a3a3;
+}
+.portletItemNewsTitle a {
+    font-style:italic;
+    font-weight:bold;
+    padding:5px 0;
+
+}
+.portletItemNewsTitle,
+.portletItemNewsDescription {
+    padding:6px 0;
+
+}
+
+.portletItemNewsTitle a {
+    color: #f09e00 !important;
+}
+.portletItemNewsReadMore a {
+    color:#E6271D !important;
+    background:url("arrow-more.png") no-repeat scroll right center transparent;
+    padding-right:15px;
+    text-transform:uppercase;
+}
+.portletItemNewsReadMore {
+    padding-bottom: 14px;
+    padding-top:8px;
+}
+
+hr.portletItemNewsHorizontalLine {
+    border-bottom:1px solid #A3A3A3;
+    height:1px;
+}
+
+dl.portletEvents > dt.portletHeader > .portletTopRight {
+    background:url("item-termine.png") no-repeat scroll 0 0 transparent;
+    height:100px;
+    margin-left:100px;
+    margin-top:-33px;
+    position:absolute;
+    width:58px;
+}
+
+dl.portletEvents  > dd.odd {
+    background-color: #DBDBDB;
+}
+dl.portletEvents  > dd.odd > a:link ,
+dl.portletEvents  > dd.odd > a:visited {
+    color: #111111 !important;
+}
+
+dl.portletEvents  > dd.even > .portletEventItemTitle,
+dl.portletEvents  > dd.even > .portletEventItemDate {
+    color: #f09e00 !important;
+}
+.portletEventItemTitle {
+    width:60%;
+    float:left;
+
+}
+dl.portletEvents  > dd.even > .portletEventItemTitle {
+    border-right: 1px solid #f09e00;    
+}
+
+dl.portletEvents  > dd.odd > .portletEventItemTitle {
+    border-right: 1px solid #ffffff;    
+}
+dl.portletEvents > dd.portletItem a {
+    min-height:22px;
+    margin-top:-5px;
+    padding-top:5px;
+}
+dl.portletEvents > dd.portletItem {
+    padding-bottom:5px;
+    padding-top:5px !important;
+}
+
+.portletEventItemDate {
+    padding-left: 20px;
+}
+
+dl.portletEvents > dd.portletFooter a {
+    background:url("arrow-more.png") no-repeat scroll right center transparent;
+    color:#E6271D !important;
+    padding-right:15px;
+    text-transform:uppercase;
+}
+dl.portletEvents > dd.portletFooter {
+    padding-bottom:25px;
+    padding-top:20px !important;
+}
+dl.portlet dd.portletFooter {
+    border-bottom: 5px solid #DBDBDB;
+    padding-top: 13px;
+    font-family:Helvetica,Arial,FreeSans,sans-serif;
+    font-size:11px;
+
+}
+#portletmanager-plone-rightcolumn.portlets-manager > div.portletAssignments,
+div.portlets-manager > div.section > form > select {
+    max-width:200px;
+}
+
+*+html #portletmanager-plone-rightcolumn.portlets-manager > div.portletAssignments,
+div.portlets-manager > div.section > form > select {
+    width:200px;
+}
+
+
+#portletmanager-plone-rightcolumn.portlets-manager > div.section > form > select {
+    margin-top:10px;
+}
+
+table.invisible {
+   width:100%;
+}

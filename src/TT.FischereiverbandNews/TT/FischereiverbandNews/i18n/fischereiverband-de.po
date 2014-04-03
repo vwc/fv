@@ -1,0 +1,121 @@
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2010-07-05 10:43+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: Le Dung <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: de\n"
+"Language-Name: Deutsch\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: plone\n"
+
+
+
+#. Default: "Back to up"
+#: ./browser/nachrichten_item_view.pt:25
+#: ./browser/termine_item_view.pt:41
+msgid "back_to_up"
+msgstr "Zurück zur Übersicht"
+
+#. Default: "The first file upload (pdf)"
+#: ./content/termine_item.py:92
+msgid "schema_first_file_label"
+msgstr "Die erste datei-upload (pdf)"
+
+#. Default: "If selected, the children can see this content"
+#: ./content/nachrichten.py:40
+#: ./content/nachrichten_item.py:76
+#: ./content/termine.py:44
+msgid "schema_for_children_description"
+msgstr "Wenn diese option aktiviert, können die kinder diese inhalte sehen"
+
+#. Default: "For Children"
+#: ./content/nachrichten.py:39
+#: ./content/nachrichten_item.py:75
+#: ./content/termine.py:43
+msgid "schema_for_children_label"
+msgstr "Für kinder"
+
+#. Default: "Short Text"
+#: ./content/nachrichten.py:31
+#: ./content/nachrichten_item.py:27
+#: ./content/termine_item.py:52
+msgid "schema_help_short_text"
+msgstr "Kurztext"
+
+
+#. Default: "Upload some the images"
+#: ./content/nachrichten_item.py:68
+msgid "schema_images_description"
+msgstr "Laden sie einige der bilder"
+
+msgid "schema_images_default_description"
+msgstr "Vorschaubild Upload"
+
+msgid "schema_images_label"
+msgstr "Bildergalerie"
+
+msgid "schema_images_default_label"
+msgstr "Vorschaubild"
+
+#. Default: "This text is used show more links of event."
+#: ./content/termine_item.py:67
+msgid "schema_link_text_description "
+msgstr "Dieser text wird verwendet, mehr links von veranstaltung."
+
+#. Default: "Links Text"
+#: ./content/termine_item.py:66
+msgid "schema_link_text_label"
+msgstr ""
+
+#. Default: "The second file upload (word or pdf)"
+#: ./content/termine_item.py:100
+msgid "schema_second_file_label"
+msgstr "Die zweite datei-upload (word oder pdf)"
+
+#. Default: "This text is used within detailed news item view."
+#: ./content/nachrichten_item.py:41
+#: ./content/termine_item.py:118
+msgid "schema_text_description"
+msgstr "Dieser text ist im newsbeitrag detaillierte ansicht verwendet."
+
+#. Default: "Text"
+#: ./content/termine_item.py:117
+msgid "schema_text_label"
+msgstr ""
+
+#. Default: "Aususschreibung als PDF"
+#: ./browser/termine_item_view.pt:27
+msgid "termine_item_first_file"
+msgstr "Aususschreibung als pdf"
+
+#. Default: "Anmeldung als Word oder PDF"
+#: ./browser/termine_item_view.pt:32
+msgid "termine_item_second_file"
+msgstr "Anmeldung als word oder pdf"
+
+#. Default: "View more..."
+#: ./portlets/events.pt:48
+msgid "view_more"
+msgstr "MEHR"
+
+#. Default: "Read more..."
+#: ./browser/archiv_view.pt:33
+#: ./browser/nachrichten_view.pt:40
+#: ./browser/termine_view.pt:35
+msgid "read_more_link"
+msgstr "MEHR"
+
+msgid "schema_help_author"
+msgstr "Autor"
+
+msgid "set_default_image"
+msgstr "Set Image-Anzeige standardmäßig in der Liste alle Nachrichten"

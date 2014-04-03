@@ -1,0 +1,47 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+    <body>
+
+        <metal:main fill-slot="main">
+            <div class="termine_item_title">
+                <h1 class="documentFirstHeading" tal:content="python:context.Title()">Title</h1>
+            </div>
+            <img src="#" class="tileImage"
+                tal:condition="python:context.getImage()"
+                tal:attributes="title context/pretty_title_or_id;
+                                src python:context.absolute_url()+'/image_thumb'" />
+            <div class="termine_item_description"
+                tal:content="structure python:view.getShortText()">description
+            </div>
+            <div class="termine_item_links_text"
+                tal:condition="python:view.getLinksText()"
+                tal:content="structure python:view.getLinksText()">text
+            </div>
+            <div class="termine_item_files_title"
+                tal:condition="python:view.showFiles()"
+                i18n:translate="termine_item_online_fomualar">
+                Online Fomualar
+                <div class="termine_item_first_file">
+                    <a href="#"
+                        tal:condition="python:view.checkExistFirstFile()"
+                        tal:attributes="href string:${context/absolute_url}/at_download/firstFile"
+                        i18n:translate="termine_item_first_file">Aususschreibung als PDF</a></div>
+                <div class="termine_item_second_file">
+                    <a href="#"
+                        tal:condition="python:view.checkExistSecondFile()"
+                        tal:attributes="href string:${context/absolute_url}/at_download/secondFile"
+                        i18n:translate="termine_item_second_file">Anmeldung als Word oder PDF</a></div>
+            </div>
+            <div class="termine_item_text"
+                tal:content="structure python:view.getText()">text
+            </div>
+            <div class="termine_item_back_link">
+                <a href="#"
+                    tal:attributes="href python:view.getParentLink()"
+                    i18n:translate="back_to_up">Back to overview</a>
+            </div>
+        </metal:main>
+    </body>
+</html>

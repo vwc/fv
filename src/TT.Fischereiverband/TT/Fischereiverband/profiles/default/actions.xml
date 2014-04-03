@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+<object name="portal_actions" meta_type="Plone Actions Tool"
+   xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+ <action-provider name="portal_actions" />
+
+ <object name="site_actions" meta_type="CMF Action Category">
+  <property name="title"></property>
+
+  <object name="email" meta_type="CMF Action" i18n:domain="plone">
+   <property name="title" i18n:translate="">E-MAIL</property>
+   <property name="description" i18n:translate=""></property>
+   <property name="url_expr">string:mailto:info@fischereiverband-schwaben.de</property>
+   <property name="icon_expr">string:$portal_url/email-icon.png</property>
+   <property name="available_expr"></property>
+   <property name="permissions">
+    <element value="View"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+  
+  <object name="home" meta_type="CMF Action" i18n:domain="plone">
+   <property name="title" i18n:translate="">HOME</property>
+   <property name="description" i18n:translate=""></property>
+   <property
+      name="url_expr">string:${portal_url}</property>
+   <property name="icon_expr">string:${portal_url}/home-icon.png</property>
+   <property name="available_expr"></property>
+   <property name="permissions">
+    <element value="View"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+  
+  <object name="impressum" meta_type="CMF Action" i18n:domain="plone">
+   <property name="title" i18n:translate="">IMPRESSUM</property>
+   <property name="description" i18n:translate=""></property>
+   <property
+      name="url_expr">string:${portal_url}/impressum</property>
+   <property name="icon_expr">string:${portal_url}/impressum-icon.png</property>
+   <property name="available_expr"></property>
+   <property name="permissions">
+    <element value="View"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+ </object>
+ 
+  <object name="meta_actions" meta_type="CMF Action Category">
+  <property name="title"></property>
+
+  <object name="kontakt" meta_type="CMF Action" i18n:domain="plone">
+   <property name="title" i18n:translate="">Kontakt</property>
+   <property name="description" i18n:translate=""></property>
+   <property name="url_expr">string:$portal_url/kontakt</property>
+   <property name="icon_expr"></property>
+   <property name="available_expr"></property>
+   <property name="permissions">
+    <element value="View"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+  
+  <object name="archiv" meta_type="CMF Action" i18n:domain="plone">
+   <property name="title" i18n:translate="">Archiv</property>
+   <property name="description" i18n:translate=""></property>
+   <property
+      name="url_expr">string:${portal_url}/archiv</property>
+   <property name="icon_expr"></property>
+   <property name="available_expr"></property>
+   <property name="permissions">
+    <element value="View"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+  
+  <object name="links" meta_type="CMF Action" i18n:domain="plone">
+   <property name="title" i18n:translate="">Links</property>
+   <property name="description" i18n:translate=""></property>
+   <property
+      name="url_expr">string:${portal_url}/links</property>
+   <property name="icon_expr"></property>
+   <property name="available_expr"></property>
+   <property name="permissions">
+    <element value="View"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+ </object>
+
+ <object name="object" meta_type="CMF Action Category">
+   <property name="title"></property>
+     <!-- MULTI UPLOAD -->
+      <object name="upload" meta_type="CMF Action" i18n:domain="plone">
+           <property name="title" i18n:translate="">Upload</property>
+           <property name="description" i18n:translate="">Batch upload files.</property>
+           <property name="url_expr">string:${object_url}/@@upload</property>
+           <property name="icon_expr"></property>
+           <property name="available_expr">
+             python:portal.portal_workflow.getInfoFor(context, "review_state", default="") == "published" and plone_context_state.is_folderish()
+           </property>
+           <property name="permissions">
+            <element value="Modify portal content"/>
+           </property>
+           <property name="visible">True</property>
+      </object>
+ </object>
+ 
+ <object name="external_link" meta_type="CMF Action Category">
+  <property name="title"></property>
+
+  <object name="youtube" meta_type="CMF Action" i18n:domain="plone">
+   <property name="title" i18n:translate=""></property>
+   <property name="description" i18n:translate=""></property>
+   <property name="url_expr">string:http://www.youtube.com</property>
+   <property name="icon_expr">string:$portal_url/youtube.png</property>
+   <property name="available_expr"></property>
+   <property name="permissions">
+    <element value="View"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+</object>
+
+</object>

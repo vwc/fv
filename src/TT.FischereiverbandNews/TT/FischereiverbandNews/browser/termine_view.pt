@@ -1,0 +1,57 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+    <body>
+        <metal:main fill-slot="main"
+            tal:define="forChildren python:view.getForChildren();
+                        TermineContents python:view.queryCatalog(batch=True, 
+                                                review_state='published', 
+                                                for_children=forChildren);
+                        batch TermineContents;">
+            <!--div class="termine_description"
+                tal:content="structure python:view.getShortText()">description</div-->
+            <tal:brain tal:repeat="obj TermineContents">
+                <tal:field 
+                    tal:define="obj python:obj.getObject();
+                                title_or_id obj/pretty_title_or_id;
+                                objImages python:obj.objectItems();
+                                obj_id obj/getId;">
+                    <div class="row">
+                        <!-- a href="#"
+                            tal:condition="python:len(objImages)"
+                            tal:attributes="href obj/absolute_url">
+                            <img src="#" class="tileImage"
+                                tal:define="objImage python:objImages[0][1]"
+                                tal:attributes="title title_or_id;
+                                                src python:objImage.absolute_url()+'/image_thumb'" />
+                        </a -->
+                        <div class="termine_item_title_preview">
+                                <h3>
+                                    <a href="" tal:content="title_or_id" 
+                                               tal:attributes="href string:${here/absolute_url}/termine-content-view?obj_id=${obj_id}" >
+                                    </a>
+                                </h3>
+                        </div>
+                        <!--div class="termine_item_autho_and_datum_preview"> 
+ 	                            <span tal:replace="python:view.getDatumFomat(obj.getEffectiveDate())" /> 
+                        </div -->
+
+                        <div class="termine_item_description_preview">
+                            <span tal:replace="structure python:view.format(obj.getShortText())" />
+                        </div>
+                        <div class="termine_item_read_more_link">
+                            <a href="#"
+                                tal:attributes="href string:${here/absolute_url}/termine-content-view?obj_id=${obj_id}"
+                                i18n:translate="read_more_link">Read more</a>
+                        </div>
+                        <hr class="termine_item_horizontal_line">
+                    </div>
+                </tal:field>
+            </tal:brain>
+            
+            <!-- Navigation -->
+            <div class="termine_paging_bar" metal:use-macro="here/batch_macros/macros/navigation" />
+        </metal:main>
+    </body>
+</html>

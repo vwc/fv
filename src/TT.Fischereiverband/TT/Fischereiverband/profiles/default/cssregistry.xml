@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<object name="portal_css">
+     <stylesheet id="member.css" authenticated="True"/>
+     <stylesheet id="base.css" />
+     <stylesheet id="public.css" />
+     <stylesheet id="columns.css" />
+     <stylesheet id="portlets.css" />
+     <stylesheet id="map.css" />
+     <stylesheet id="uploadify.css" />
+     <stylesheet id="mobile.css" media="handheld" enabled="0" />
+     <stylesheet id="print.css" media="print" />
+     <stylesheet id="RTL.css"
+        expression="python:portal.restrictedTraverse('@@plone_portal_state').is_rtl()" />
+     <stylesheet id="IEFixes.css" conditionalcomment="lt IE 8" />
+</object>

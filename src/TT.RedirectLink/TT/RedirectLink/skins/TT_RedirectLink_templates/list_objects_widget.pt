@@ -1,0 +1,72 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="RedirectLink">
+  <head><title></title></head>
+  <body>
+
+    <!-- List Objects Widget -->
+    <metal:view_macro define-macro="view" 
+        tal:define="value accessor;
+                    parentObj python:here.aq_inner.aq_parent;
+                    value python:value or here.id;
+                    obj python:parentObj[value];">
+        <div class="InternalRedirectView"
+            tal:condition="obj">
+            <span i18n:translate="">Link: </span>
+            <a href="#"
+                tal:content="obj/absolute_url"> link </a>
+            <tal:redirect 
+                tal:condition="context/@@plone/isDefaultPageInFolder|nothing">
+                <p tal:define="url python:here.REQUEST.RESPONSE.redirect(obj.absolute_url());" />
+            </tal:redirect>
+        </div>
+        
+    </metal:view_macro>
+
+    <div metal:define-macro="edit">
+        <div metal:use-macro="field_macro | context/widgets/field/macros/edit">
+            <div metal:fill-slot="widget_body">
+                <metal:use use-macro="here/list_objects_widget/macros/list_objects_edit" />
+            </div>
+        </div>
+    </div>	
+
+    <div metal:define-macro="search">
+      <div metal:use-macro="context/widgets/lines/macros/edit"></div>
+    </div>
+
+    <metal:hidden_macro define-macro="hidden">  
+    </metal:hidden_macro>
+    
+    <!-- My Macro -->
+    <metal:define define-macro="list_objects_edit"
+        tal:define="global parentObj python:here.aq_inner.aq_parent;
+                    value accessor">
+        <tal:check tal:condition="python:parentObj.meta_type == 'TempFolder'">
+            <p tal:define="global parentObj python:here.aq_inner.aq_parent.aq_parent.aq_parent;" tal:omit-tag="" />    
+        </tal:check>
+        <div class="row">
+        <tal:repeat tal:repeat="obj python:parentObj.objectItems()">
+            <tal:check 
+                tal:define="obj python:obj[1];
+                            index repeat/obj/index"
+                tal:condition="python:obj.meta_type not in ['InternalRedirect']">
+                <div class="row">
+                    <input type="radio" name=""
+                        tal:attributes="name string:${fieldName};
+                                        id string:${fieldName}_${index};
+                                        value obj/id;
+                                        checked python:(obj.id == value) and 'checked' or default" />
+                    <label
+                        tal:attributes="for string:${fieldName}_${index}"
+                        tal:content="obj/title_or_id">title</label>
+                </div>
+            </tal:check>
+        </tal:repeat>
+        </div>
+    </metal:define>
+  </body>
+
+</html>

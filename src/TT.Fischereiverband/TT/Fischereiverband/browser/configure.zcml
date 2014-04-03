@@ -1,0 +1,140 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="TT.Fischereiverband">
+
+  <interface
+      interface=".interfaces.IFischereiverband"
+      type="zope.publisher.interfaces.browser.IBrowserSkinType"
+      name="Fischereiverband"
+      />
+
+  <browser:viewlet  
+        name="plone.global_sections"
+        manager="plone.app.layout.viewlets.interfaces.IPortalTop"
+        class=".viewlets.GlobalSectionsViewlet"
+        permission="zope2.View"
+        layer=".interfaces.IFischereiverband"
+        />
+   <browser:viewletManager
+        name="TT.SearchBox"
+        provides=".interfaces.IPortalSearch"
+        permission="zope2.View"
+        class="plone.app.viewletmanager.manager.OrderedViewletManager"
+        />
+
+    <browser:viewlet
+        name="plone.searchbox"
+        manager=".interfaces.IPortalSearch"
+        class="plone.app.layout.viewlets.common.SearchBoxViewlet"
+        template="search.pt"
+        permission="zope2.View"
+        layer=".interfaces.IFischereiverband"
+        />
+
+   <browser:viewletManager
+        name="TT.MetaAction"
+        provides=".interfaces.IMetaAction"
+        permission="zope2.View"
+        class="plone.app.viewletmanager.manager.OrderedViewletManager"
+        />
+   
+    <browser:viewlet
+        name="tt.meta_actions"
+        manager=".interfaces.IMetaAction"
+        class=".viewlets.MetaActionsViewlet"
+        template="meta_actions.pt"
+        permission="zope2.View"
+        />
+  
+      <browser:page
+        for="*"
+        name="fischereiverview"
+        class=".fischereiverview.FischereiverView"
+        permission="zope.Public"
+        allowed_interface=".interfaces.IFischereiverView"
+        />   
+    <browser:page
+        for="*"
+        name="maps-controlpanel"
+        class=".controls.MapsControl"
+        template="maps_control.pt"
+        permission="cmf.ManagePortal"
+        allowed_interface=".interfaces.IFischereiverView"
+        />  
+    <browser:page
+        for="*"
+        name="maps_control_submit"
+        class=".controls.MapsControl"
+        permission="cmf.ManagePortal"
+        attribute="maps_control_submit"
+        allowed_interface=".interfaces.IFischereiverView"
+        />    
+     <browser:page
+        for="*"
+        name="mail_control_submit"
+        class=".controls.MailControl"
+        permission="cmf.ManagePortal"
+        attribute="mail_control_submit"
+        allowed_interface=".interfaces.IFischereiverView"
+        />    
+
+    <browser:page
+        for="*"
+        name="materialmail-controlpanel"
+        class=".controls.MailControl"
+        template="material_mail_control.pt"
+        permission="cmf.ManagePortal"
+        allowed_interface=".interfaces.IFischereiverView"
+        />  
+    <browser:page
+        for="*"
+        name="vorstandview"
+        class=".vorstandview.VorstandView"
+        template="vorstand.pt"
+        permission="zope.Public"
+        />   
+ 
+    <browser:page
+        for="TT.Fischereiverband.contents.interfaces.IOrganisation"
+        name="organisation_view"
+        class=".organisationview.OrganisationView"
+        template="organisation_view.pt"
+        permission="zope.Public"
+        />   
+       
+    <adapter factory=".atct.UploadingCapableFileFactory" />
+
+    <class class="Products.ATContentTypes.content.folder.ATFolder">
+      <implements interface=".interfaces.IUploadingCapable" />
+    </class>
+
+    <class class="Products.ATContentTypes.content.folder.ATBTreeFolder">
+      <implements interface=".interfaces.IUploadingCapable" />
+    </class>
+
+    <class class="Products.CMFPlone.Portal.PloneSite">
+      <implements interface=".interfaces.IUploadingCapable" />
+    </class>
+
+    <!-- Multi upload -->
+    <browser:page
+        for=".interfaces.IUploadingCapable"
+        name="upload"
+        class=".upload.UploadView"
+        permission="cmf.ModifyPortalContent"/>
+        
+    <browser:page
+        for="*"
+        name="upload_file"
+        class=".upload.UploadFile"
+        permission="zope2.View"/>
+        
+    <browser:page
+        for="*"
+        name="upload_initialize"
+        class=".upload.UploadInitalize"
+        permission="cmf.ModifyPortalContent"/>
+
+     
+</configure>

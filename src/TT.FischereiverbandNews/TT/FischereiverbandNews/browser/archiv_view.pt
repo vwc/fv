@@ -1,0 +1,42 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+    <body>
+        <metal:main fill-slot="main"
+            tal:define="availableYear python:view.availableYear();
+                        DateTime python:modules['DateTime'].DateTime;
+                        current python:DateTime().year();
+                        year python:context.REQUEST.get('year',current)">
+                
+            <tal:block tal:replace="structure string:  <script type='text/javascript' charset='utf-8'> "/>
+            <tal:block tal:replace="structure string: var url = '${here/absolute_url}/archiv';"/>
+    	    <tal:block tal:replace="structure string:  </script>"/>
+
+            <script type="text/javascript">
+                window.onload = function(){
+                    jq('.availableYear').change(function(){
+                        var archiv_year= jq('.availableYear').val();
+                        var archiv_link = url+'?year='+archiv_year;
+                        window.location.replace(archiv_link)
+                   });
+                }
+            </script>
+            <div class="archiv_title" style="float:left;"><h1>Archive</h1></div>
+            <div id="availableYear" style="float:right;">
+                <label for="availableYear">Archiv at year:</label>
+                <select class="availableYear">
+                  <tal:def tal:repeat="opt availableYear">
+                    <option tal:content="opt" 
+                            tal:attributes="value opt;
+                                            selected python:(str(year)==str(opt)) and 'selected' or ''"/>
+                 </tal:def>
+                </select>
+            </div>            
+            <div id="archive-container">
+                <span tal:replace="structure python:context.archiv_template(year=year)" />
+            </div>
+            
+        </metal:main>
+    </body>
+</html>

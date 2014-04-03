@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+
+<object name="portal_skins" allow_any="False" cookie_persistence="False"
+   default_skin="Fischereiverband">
+
+ <object name="fischereiverband_images"
+    meta_type="Filesystem Directory View"
+    directory="TT.Fischereiverband:skins/fischereiverband_images"/>
+ <object name="fischereiverband_templates"
+    meta_type="Filesystem Directory View"
+    directory="TT.Fischereiverband:skins/fischereiverband_templates"/>
+ <object name="fischereiverband_styles"
+    meta_type="Filesystem Directory View"
+    directory="TT.Fischereiverband:skins/fischereiverband_styles"/>
+<object name="fischereiverband_scripts"
+    meta_type="Filesystem Directory View"
+    directory="TT.Fischereiverband:skins/fischereiverband_scripts"/>
+   
+
+ <skin-path name="Fischereiverband" based-on="Plone Default">
+  <layer name="fischereiverband_images"
+     insert-after="custom"/>
+  <layer name="fischereiverband_templates"
+     insert-after="fischereiverband_images"/>
+  <layer name="fischereiverband_styles"
+     insert-after="fischereiverband_templates"/>
+  <layer name="fischereiverband_scripts"
+     insert-after="fischereiverband_styles"/>
+ </skin-path>
+
+</object>

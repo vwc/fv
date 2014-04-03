@@ -1,0 +1,71 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      tal:omit-tag="">
+<dl class="portlet portletNews"
+    i18n:domain="plone"
+    tal:define="contextType python:view.getTypeObject(context);
+                viewItemBool python:contextType=='NachrichtenItem'">
+    
+    <dt class="portletHeader">
+        <span class="portletTopLeft"></span>
+        <div class="portletsNewsHeader"
+           i18n:translate="box_news">Nachrichten</div>
+        <span class="portletTopRight">&nbsp;</span>
+    </dt>
+    <tal:parent
+        tal:condition="viewItemBool"
+        tal:define="p python:context.aq_inner.aq_parent">
+        <dd class="portletItem">
+            <div class="portletItemNewsDescription">
+                <span tal:replace="python:view.format(p.getShortText())" />
+            </div>
+            <div class="portletItemNewsReadMore">
+            <a href="#"
+                tal:attributes="href python:p.absolute_url()"
+                i18n:translate="read_more_link">Read more</a>
+         </div>
+        </dd>
+    </tal:parent>    
+    <tal:newsitems  
+        tal:condition="python:not viewItemBool"
+        tal:define="news_recent view/published_news_items;
+                                toLocalizedTime nocall:context/@@plone/toLocalizedTime;
+                                plone_view context/@@plone;
+                                getIcon nocall:plone_view/getIcon;
+                                DateTime python:modules['DateTime'].DateTime;"
+                    tal:repeat="obj news_recent">
+    <dd tal:define="oddrow repeat/obj/odd;
+                    item_icon python:getIcon(obj);"
+         tal:attributes="class python:oddrow and 'portletItem even' or 'portletItem odd'">
+        
+        <div class="portletItemNewsTime"
+            tal:define="publication_date python:DateTime(obj.Date).toZone('GMT').strftime('%d.%m.%Y')"
+            tal:content="publication_date">May 5</div>
+        <div class="portletItemNewsTitle">
+            <a href=""
+               tal:attributes="href obj/getURL;
+                               title obj/Description">
+                <span tal:replace="obj/pretty_title_or_id">
+                    Plone 2.1 announced!
+                </span>
+            </a>
+         </div>
+         <div class="portletItemNewsDescription">
+            <span tal:replace="python:obj.getObject().getSubTitle()" />
+         </div>
+         <div class="portletItemNewsReadMore">
+            <a href="#"
+                tal:attributes="href python:obj.getObject().absolute_url()"
+                i18n:translate="read_more_link">Read more</a>
+         </div>
+          <hr tal:condition="not: repeat/obj/end" class="portletItemNewsHorizontalLine" />
+    </dd>
+    </tal:newsitems>
+    
+    <dd class="portletFooter">
+        <span class="portletBottomLeft"></span>
+        <span class="portletBottomRight"></span>
+    </dd>
+</dl>
+</html>

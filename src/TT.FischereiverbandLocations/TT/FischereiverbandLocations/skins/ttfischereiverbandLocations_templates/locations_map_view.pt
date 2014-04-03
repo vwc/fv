@@ -1,0 +1,67 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="plone">
+
+<body>
+<metal:content-core fill-slot="content-core">
+    <metal:block define-macro="content-core"
+          tal:define="kssClassesView context/@@kss_field_decorator_view; 
+                      getKssClasses nocall:kssClassesView/getKssClassesInlineEditable;
+                      templateId template/getId;">
+
+    <div class="locations-header">
+        <h1 tal:content="context/getHeader"></h1>
+    </div>
+
+    <div class="locations-body-text" style="float:left; width:50%;">
+        <metal:field use-macro="python:context.widget('text', mode='view')">
+            Body text
+        </metal:field>
+    </div>
+    
+    <div class="locations-map">
+        <script language="JavaScript">
+            function mover(img_src) {
+              $('#map_image').attr("src", img_src);
+            }
+            
+            function mout(img_src) {
+              $('#map_image').attr("src", img_src);
+            }
+        </script>
+        <style>
+            #map_image.title,
+            #map_image.alt {display:none}
+        </style>
+        <tal:foldercontents define="contentFilter contentFilter|request/contentFilter|nothing;
+    	                    contentFilter python:contentFilter and dict(contentFilter) or {};
+                            limit_display limit_display|request/limit_display|nothing;
+                            limit_display python:limit_display and int(limit_display) or None;
+                            folderContents folderContents|nothing; folderContents python:folderContents and context.queryCatalog(batch=True, **contentFilter) or context.getFolderContents(contentFilter, batch=True, b_size=limit_display or 100);">
+            <map name="locations-map-area">
+                <tal:entry tal:repeat="item folderContents">
+                <tal:block tal:define="location item/getObject">
+                <area shape="poly" alt=""
+                    tal:attributes="location item/getObject;
+                                    coords location/getLocationArea;
+                                    href string:${location/absolute_url};
+                                    onmouseover string:mover('${location/absolute_url}/map_large');
+                                    onmouseout string:mout('${here/absolute_url}/map_large');">
+                </tal:block>
+                </tal:entry>
+            </map>
+        </tal:foldercontents>
+        <div class="locations-map-image"
+                tal:condition="context/getMap|nothing">
+                <img tal:replace="structure python: context.tag(scale='large', usemap='#locations-map-area', id='map_image', style='border:none',alt='',title='')" src="" alt="" />
+        </div>
+    </div>
+    </metal:block>
+</metal:content-core>
+</body>
+</html>
+

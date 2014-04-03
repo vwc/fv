@@ -1,0 +1,49 @@
+<metal:block tal:define="year python:options.get('year', '');
+                         archives python:context.getAchivByYear(year);
+                         Batch python:modules['Products.CMFPlone'].Batch;
+                         batch_base_url string:${here/portal_url}/archiv;
+                         b_size python:5; b_size request/b_size | b_size;
+                         b_start python:0;b_start request/b_start | b_start;
+		                 batch python:Batch(archives, b_size, int(b_start), orphan=0);">
+    <tal:brain tal:repeat="obj batch">
+        <tal:field 
+            tal:define="title_or_id obj/pretty_title_or_id;
+                        objImages python:obj.objectItems();">
+            <div class="row">
+                <hr class="nachrichten_item_horizontal_line">
+                <!-- a href="#"
+                    tal:attributes="href obj/absolute_url">
+                    <img src="#" class="tileImage"
+                        tal:condition="exists:obj/getImages|nothing"
+                        tal:attributes="title title_or_id;
+                                        src python:obj.absolute_url()+'/images_thumb'" />
+                </a -->
+
+                <div class="nachrichten_item_title_preview">
+                    <h3 tal:content="title_or_id">Title or Id</h3>
+                </div>
+                <a href="#"
+                        tal:condition="python:len(objImages)"
+                        tal:attributes="href obj/absolute_url">
+                        <img src="#" class="tileImage"
+                            tal:define="imgId python:obj.getImageList();
+                                        objImage python:getattr(obj,imgId,objImages[0][1])"
+                            tal:attributes="src python:objImage.absolute_url()+'/image_thumb'" />
+                </a>
+
+                <div class="nachrichten_item_description_preview">
+                    <span tal:replace="structure python:obj.getShortText()" />
+                </div>
+                <div class="nachrichten_item_read_more_link">
+                    <a href="#"
+                        tal:attributes="href obj/absolute_url"
+                        i18n:translate="read_more_link">Read more...</a>
+                </div>
+                <span tal:content="here/portal_url"/>
+            </div>
+        </tal:field>
+    </tal:brain>
+    <!-- Navigation -->
+    <div class="nachrichten_paging_bar" metal:use-macro="here/batch_macros/macros/navigation" />
+
+</metal:block>

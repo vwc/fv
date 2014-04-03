@@ -1,0 +1,68 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+    <body>
+        <metal:main fill-slot="main"
+            tal:define="forChildren python:view.getForChildren();
+                        NachrichtenContents python:view.queryCatalog(batch=True, 
+                                                review_state='published', 
+                                                for_children=forChildren);
+                        batch NachrichtenContents">
+                <div class="nachrichten_description"
+                    tal:content="structure python:view.getShortText()">description</div>
+                <tal:brain tal:repeat="obj NachrichtenContents">
+                    <tal:field 
+                        tal:define="obj python:obj.getObject();
+                                    title_or_id obj/pretty_title_or_id;
+                                    objImages python:obj.objectItems();
+                                    default_image python:obj.getImages();
+                                    hasImage python:default_image and 'right-image' or '';
+                                    obj_id obj/getId;
+                                    ">
+                        <div class="row nachrichten_item">
+                            <div class="nachrichten_item_title_preview">
+                                <h3>
+                                    <a href="#" 
+                                       tal:content="title_or_id" 
+                                       tal:attributes="href string:${here/absolute_url}/nachrichten-content-view?obj_id=${obj_id}" > title or id </a>
+                                    <br />
+                                    <span class="nachrichten_item_sub_title" tal:content="obj/getSubTitle"/>
+                                </h3>
+                            </div>
+                            <div class="nachrichten_item_autho_and_datum_preview" 
+                                 tal:attributes="class python:'nachrichten_item_autho_and_datum_preview ' + hasImage"> 
+ 	                            <span tal:replace="python:view.getDatumFomat(obj.getEffectiveDate())" /> 
+ 	                        </div>
+                            <div class="nachrichten_col_left" tal:attributes="class python:'nachrichten_col_left ' + hasImage">
+                            <div class="nachrichten_item_description_preview">
+                                <span tal:replace="structure python:view.format(obj.getShortText())" />
+                            </div>
+                            <div class="nachrichten_item_read_more_link">
+                                <a href="#"
+                                    tal:attributes="href string:${here/absolute_url}/nachrichten-content-view?obj_id=${obj_id}"
+                                    i18n:translate="read_more_link">Read more</a>
+                            </div>
+                          </div>
+                          <div class="nachrichten_col_right">
+                            <a id="nachrichten_image" href="#"
+                                tal:condition="python:default_image"
+                                tal:attributes="href obj/absolute_url">
+                                <!--img src="#" class="tileImage"
+                                    tal:define="imgId python:obj.getImageList();
+                                                objImage python:getattr(obj,imgId,objImages[0][1])"
+                                    tal:attributes="src python:objImage.absolute_url()+'/image_thumb'" /-->
+                                <img tal:replace="structure python:obj.tag(scale='thumb',src='' ,alt='',id='',css_class='tileImage')" src="" alt="" />
+                            </a>
+    
+                          </div>
+                        </div>
+                        <hr class="nachrichten_item_horizontal_line" tal:attributes="class python:'nachrichten_item_horizontal_line ' + hasImage">
+                    </tal:field> 
+                </tal:brain> 	 	                 
+                <!-- Navigation --> 
+                <div class="nachrichten_paging_bar" metal:use-macro="here/batch_macros/macros/navigation" /> 
+            <!-- span id="nachrichten_bottom">&nbsp;</span -->
+        </metal:main>
+    </body>
+</html>

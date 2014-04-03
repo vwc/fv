@@ -1,0 +1,12 @@
+[default]
+title=Materials view
+
+[security]
+View=0:Anonymous
+
+[validators]
+validators=validate_materials_feedback
+
+[actions]
+action.success=traverse_to:string:materials_feedback
+action.failure=traverse_to:string:materials_view

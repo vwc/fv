@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<object name="Nachrichten"
+   meta_type="Factory-based Type Information with dynamic views"
+   xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+ <property name="title">Nachrichten</property>
+ <property
+    name="description">To structure news items</property>
+ <property name="content_icon">folder_icon.gif</property>
+ <property name="content_meta_type">Nachrichten</property>
+  <property name="product">TT.FischereiverbandNews</property>
+ <property name="factory">addNachrichten</property>
+ <property name="immediate_view">nachrichten-view</property>
+ <property name="global_allow">True</property>
+ <property name="filter_content_types">True</property>
+ <property name="allowed_content_types">
+    <element value="NachrichtenItem"/>
+ </property>
+ <property name="allow_discussion">False</property>
+ <property name="default_view">nachrichten-view</property>
+ <property name="view_methods">
+    <element value="nachrichten-view"/>
+ </property>
+ <property name="default_view_fallback">False</property>
+ <alias from="(Default)" to="nachrichten-view"/>
+ <alias from="edit" to="atct_edit"/>
+ <alias from="sharing" to="@@sharing"/>
+ <alias from="view" to="nachrichten-view"/>
+ <action title="View" action_id="view" category="object" condition_expr=""
+    url_expr="string:${folder_url}/" visible="True"
+    i18n:attributes="title">
+  <permission value="View"/>
+ </action>
+ <action title="Edit" action_id="edit" category="object" condition_expr="not:object/@@plone_lock_info/is_locked_for_current_user|python:True"
+    url_expr="string:${object_url}/edit" visible="True"
+    i18n:attributes="title">
+  <permission value="Modify portal content"/>
+ </action>
+ <action title="Folder Listing" action_id="folderlisting" category="folder"
+    condition_expr="object/isPrincipiaFolderish"
+    url_expr="string:${folder_url}/view" visible="False"
+    i18n:attributes="title">
+  <permission value="View"/>
+ </action>
+</object>

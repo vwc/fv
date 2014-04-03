@@ -1,0 +1,67 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="TT.FischereiverbandNews">
+
+    <!-- 'FischereiverbandNews' Zope 3 browser layer
+    Register views, viewlets and resources for this layer to make sure
+    they only apply to the 'FischereiverbandNews' theme.
+    You can also use this layer to override default Plone browser views
+    and viewlets only within the 'FischereiverbandNews' theme.
+    -->
+    <interface
+        interface=".interfaces.IFischereiverbandNewsLayer"
+        type="zope.publisher.interfaces.browser.IBrowserSkinType"
+        name="FischereiverbandNews"
+        />
+    
+    <browser:page
+        name="nachrichten-view"
+        for="TT.FischereiverbandNews.interfaces.INachrichten"
+        class=".nachrichten_view.NachrichtenView"
+        template="nachrichten_view.pt"
+        permission="zope.Public" />
+        
+    <browser:page
+        name="nachrichten-item-view"
+        for="TT.FischereiverbandNews.interfaces.INachrichtenItem"
+        class=".nachrichten_item_view.NachrichtenItemView"
+        template="nachrichten_item_view.pt"
+        permission="zope.Public" />
+    
+    <browser:page
+        name="termine-view"
+        for="TT.FischereiverbandNews.interfaces.ITermine"
+        class=".termine_view.TermineView"
+        template="termine_view.pt"
+        permission="zope.Public" />
+    
+    <browser:page
+        name="termine-item-view"
+        for="TT.FischereiverbandNews.interfaces.ITermineItem"
+        class=".termine_item_view.TermineItemView"
+        template="termine_item_view.pt"
+        permission="zope.Public" />
+ 
+    <browser:page
+        name="nachrichten-content-view"
+        for="TT.FischereiverbandNews.interfaces.INachrichten"
+        class=".nachrichten_content_view.NachrichtenContentView"
+        template="nachrichten_content_view.pt"
+        permission="zope.Public" />
+
+    <browser:page
+        name="termine-content-view"
+        for="TT.FischereiverbandNews.interfaces.ITermine"
+        class=".termine_content_view.TermineContentView"
+        template="termine_content_view.pt"
+        permission="zope.Public" />
+           
+    <browser:page
+        name="archiv"
+        for="*"
+        class=".archiv_view.ArchivView"
+        template="archiv_view.pt"
+        permission="zope.Public" />
+    
+</configure>

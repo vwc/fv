@@ -1,0 +1,20 @@
+<div xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+     xmlns:tal="http://xml.zope.org/namespaces/tal"
+     xmlns:metal="http://xml.zope.org/namespaces/metal"
+     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+     i18n:domain="plone" 
+     tal:omit-tag=""
+     tal:define="portal context/@@plone_portal_state/portal;
+                 charset portal/email_charset|string:utf-8;
+                 dummy python:request.RESPONSE.setHeader('Content-Type', 'text/plain;;charset=%s' % charset);"
+><span i18n:translate="" tal:omit-tag="">Club / Cooperative</span>: <span tal:replace="options/club|nothing" />
+<span i18n:translate="" tal:omit-tag="">Organisation number (if known)</span>: <span tal:replace="options/organisation|nothing" />
+<span i18n:translate="" tal:omit-tag="">Full Name</span>: <span tal:replace="options/fullname|nothing" />
+<span i18n:translate="" tal:omit-tag="">Member number (if known)</span>: <span tal:replace="options/member_number|nothing"/>
+<span i18n:translate="" tal:omit-tag="">Street</span>: <span tal:replace="options/street|nothing"/>
+<span i18n:translate="" tal:omit-tag="">ZIP, City</span>: <span tal:replace="options/city|nothing"/>
+<span i18n:translate="" tal:omit-tag="">Phone</span>: <span tal:replace="options/phone|nothing"/>
+<span i18n:translate="" tal:omit-tag="">Materials</span>:<tal:material 
+    repeat="material options/materials|python:[]">
+    <span tal:replace="material/name" /> <span tal:replace="material/number" /></tal:material>
+</div>

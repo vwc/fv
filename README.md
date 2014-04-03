@@ -33,19 +33,5 @@ to be used via *plone.app.theming* located in the '${buildout:directory}/src'
 directory and initialized via *mr.developer*. Just rename it and you should
 be done.
 
-Since keeping this example theme up to date requires extra effort, the theme
-setup should preferably be updated to use modern frontend workflow and tools.
-Therefore the state of this buildout is considered "work in progress".
-
-Todo/WIP:
---------
-
-* move code that can be distributed as seperate parts into its own dedicated
-repository for further simplification (e.g. Plone CMS compatibility styles)
-* eval: use a standalone theme resource directory an distribute it independent
-form the Plone integration layer (the actual isntallable Python package)
-* eval: intall all theme depandencies via 'bower install <external>'
-* eval: generate the theme resources via *Yeoman* generator
-* use *Grunt* to concat, compile and build all theme resources - this should
-further lower the barriers for development (no local less compiler necessary 
-like e.g. CodeKit)
+In order to add a theme resource directory checkout the yeoman diazotheme
+generator.

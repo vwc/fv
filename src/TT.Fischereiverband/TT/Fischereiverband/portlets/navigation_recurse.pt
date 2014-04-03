@@ -1,0 +1,71 @@
+<tal:master define="level options/level|python:0;
+                    children options/children | nothing;
+                    bottomLevel options/bottomLevel | nothing;
+                    checkPermission nocall: context/portal_membership/checkPermission;"
+            i18n:domain="plone">
+
+<metal:main define-macro="nav_main">
+
+<tal:navitem repeat="node children">
+
+<li tal:define="show_children   node/show_children;
+                children        node/children;
+                item_url        node/getURL;
+                item_icon       node/item_icon;
+                is_current      node/currentItem;
+                is_in_path      node/currentParent;
+                li_class        python:is_current and ' navTreeCurrentNode' or '';
+                li_extr_class   python:is_in_path and ' navTreeItemInPath' or '';
+                li_folder_class python:show_children and ' navTreeFolderish' or '';
+                item_index repeat/node/index;
+                is_first python: item_index == 0 and ' first ' or ''"
+    tal:attributes="class string:navTreeItem visualNoMarker${li_class}${li_extr_class}${li_folder_class} ${is_first} "
+    tal:condition="python:bottomLevel &lt;= 0 or level &lt;= bottomLevel">
+
+    <tal:level define="item_class string:state-${node/normalized_review_state}">
+
+
+      <div tal:define="item_class python:is_current and item_class + ' navTreeCurrentItem' or item_class">
+       <!-- div tal:define="item_index repeat/node/index"
+            tal:condition="python: (level > 1) and (item_index != 0)" id='navTreeBottomBorder'> </div -->
+        <a tal:attributes="href python:item_url;
+                           title node/Description;
+                           class string:$item_class${li_class}${li_extr_class}${li_folder_class}">
+            <span tal:content="string:${node/Title}">Selected Item Title</span>
+        </a>
+        
+    </div>
+
+    <ul tal:attributes="class python:'navTree navTreeLevel'+str(level)"
+        tal:condition="python: len(children) > 0 and show_children"> 
+        <span tal:replace="structure python:view.recurse(children=children, level=level+1, bottomLevel=bottomLevel)" />
+    </ul>
+    <!-- tal:organisation condition="python:node['portal_type'] == 'Organisation' and context.portal_type=='Organisation'">
+        <tal:member define="pm context/@@plone_tools/membership;node_id python:node.get('id','');
+                                     portal_url context/@@plone_portal_state/portal_url; 
+                                     users python:context.getListUserOfVorstand() or [];
+                                     author python:request.get('author', None);">
+            <ul tal:attributes="class python:'navTree navTreeLevel'+str(level)">
+                <tal:cons tal:condition="users">
+                <tal:re repeat="userid users">
+                    <tal:vorstant tal:define="personal_info python:pm.getMemberInfo(userid) or {};
+                                              selected python:author==userid and ' navTreeCurrentNode' or '';">
+                        <li tal:define="item_index repeat/userid/index;
+                                        is_first python: item_index == 0 and ' first ' or ''"
+                            tal:attributes= "class python: selected + ' navTreeItem visualNoMarker navTreeFolderish ' +is_first">
+                           <a href="#" tal:attributes="href string:${here/absolute_url}/vorstandview?author=$userid;
+                                                       class python: 'navTreeCurrentItem' + selected +' navTreeFolderish'">
+                                   <span tal:content="python:personal_info.get('fullname', userid)">user id</span>
+                           </a>
+                        </li>
+                   </tal:vorstant>
+                </tal:re>
+               </tal:cons>
+            </ul>
+        </tal:member>
+    </tal:organisation -->
+    </tal:level>
+</li>
+</tal:navitem>
+</metal:main>
+</tal:master>

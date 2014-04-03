@@ -1,0 +1,124 @@
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2010-07-02 08:56+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: de\n"
+"Language-Name: Deutsch\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: plone\n"
+
+#: ./profiles/default/types/Materials.xml
+msgid "A materials which can contain other items."
+msgstr ""
+
+#: ./profiles/default/types/Material.xml
+msgid "Material item."
+msgstr "Materialien Item"
+
+#: ./profiles/default/types/Material.xml
+msgid "Material Item"
+msgstr "Materialien Item"
+
+#: ./profiles/default/types/Materials.xml
+#: ./skins/ttfischereiverbandMaterials_templates/materials_feedback_template.pt:17
+msgid "Materials"
+msgstr "Materialien"
+
+#: ./skins/ttfischereiverbandMaterials_templates/materials_feedback_template.pt:10
+#: ./skins/ttfischereiverbandMaterials_templates/materials_view.cpt:151
+msgid "Club / Cooperative"
+msgstr "Verein/Genossenschaft"
+
+#: ./skins/ttfischereiverbandMaterials_templates/materials_feedback_template.pt:11
+#: ./skins/ttfischereiverbandMaterials_templates/materials_view.cpt:168
+msgid "Organisation number (if known)"
+msgstr "Organisationsnummer (falls bekannt)"
+
+#: ./skins/ttfischereiverbandMaterials_templates/materials_feedback_template.pt:12
+#: ./skins/ttfischereiverbandMaterials_templates/materials_view.cpt:182
+msgid "Full Name"
+msgstr "Vor- und Zuname"
+
+#: ./skins/ttfischereiverbandMaterials_templates/materials_feedback_template.pt:13
+#: ./skins/ttfischereiverbandMaterials_templates/materials_view.cpt:199
+msgid "Member number (if known)"
+msgstr "Mitgliedsnummer (falls bekannt)"
+
+#: ./skins/ttfischereiverbandMaterials_templates/materials_feedback_template.pt:14
+#: ./skins/ttfischereiverbandMaterials_templates/materials_view.cpt:213
+msgid "Street"
+msgstr "Strasse"
+
+#: ./skins/ttfischereiverbandMaterials_templates/materials_view.cpt:146
+msgid "Your data"
+msgstr "Ihre Daten"
+
+#: ./skins/ttfischereiverbandMaterials_templates/materials_feedback_template.pt:15
+#: ./skins/ttfischereiverbandMaterials_templates/materials_view.cpt:231
+msgid "ZIP, City"
+msgstr "PLZ, Ort"
+
+#: ./skins/ttfischereiverbandMaterials_templates/materials_feedback_template.pt:16
+#: ./skins/ttfischereiverbandMaterials_templates/materials_view.cpt:249
+msgid "Phone"
+msgstr "Telefon"
+
+#: ./skins/ttfischereiverbandMaterials_templates/validate_materials_feedback.vpy:24
+msgid "Please enter your city"
+msgstr "Bitte geben Sie Ihre PLZ, Ort"
+
+#: ./skins/ttfischereiverbandMaterials_templates/validate_materials_feedback.vpy:15
+msgid "Please enter your club."
+msgstr "Bitte geben Sie Ihren Club."
+
+#: ./skins/ttfischereiverbandMaterials_templates/validate_materials_feedback.vpy:18
+msgid "Please enter your full name"
+msgstr "Bitte geben Sie Ihren vollständigen Namen"
+
+#: ./skins/ttfischereiverbandMaterials_templates/validate_materials_feedback.vpy:27
+msgid "Please enter your phone"
+msgstr "Bitte geben Sie Ihre Telefonnummer"
+
+#: ./skins/ttfischereiverbandMaterials_templates/validate_materials_feedback.vpy:21
+msgid "Please enter your street"
+msgstr "Bitte geben Sie Ihre Straße"
+
+#: ./skins/ttfischereiverbandMaterials_templates/validate_materials_feedback.vpy:34
+msgid "Please select materials"
+msgstr "Bitte wählen Sie Materialien"
+
+#: ./skins/ttfischereiverbandMaterials_templates/materials_view.cpt:78
+msgid "Select materials"
+msgstr "Bitte wählen Sie Materialien"
+
+#: ./contents/Material.py:32
+msgid "Price"
+msgstr "Preis"
+
+#. Default: "Title"
+#: ./skins/ttfischereiverbandMaterials_templates/materials_view.cpt:93
+msgid "listingheader_title"
+msgstr "Titel"
+
+#. Default: "Number"
+#: ./skins/ttfischereiverbandMaterials_templates/materials_view.cpt:97
+msgid "listingheader_number"
+msgstr "Anzahl"
+
+#. Default: "Price"
+#: ./skins/ttfischereiverbandMaterials_templates/materials_view.cpt:95
+msgid "listingheader_price"
+msgstr "Preis"
+
+msgid "message_material_feedback_confirm"
+msgstr "Herzlichen Dank für Ihre Bestellung. Wir werden sie umgehend bearbeiten und an Sie versenden."

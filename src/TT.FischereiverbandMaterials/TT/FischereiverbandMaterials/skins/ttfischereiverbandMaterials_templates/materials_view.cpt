@@ -1,0 +1,296 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="plone">
+
+<body>
+
+    <metal:content-core fill-slot="content-core"
+        tal:define="limit_display python:100">
+
+        <metal:block use-macro="context/folder_listing/macros/content-core">
+
+            <metal:entries fill-slot="entries"
+                tal:define="portal context/@@plone_portal_state/portal;
+                            email_from_address portal/email_from_address;">
+
+            <div tal:condition="not:email_from_address">
+        
+                <div i18n:translate="text_no_email_setup">
+                    This site doesn't have a valid email setup, so you cannot use
+                    any contact forms. 
+                </div>
+        
+            </div>
+
+            <style>
+                div.listingBar a.selected {
+                    font-weight: bold;
+                }
+            </style>
+
+            <script type="text/javascript">
+            
+                var current_page = 'page-0';
+            
+                function selectPage(page) {
+                    //alert(page);
+                    if (page==current_page) return;
+                    $('#'+page).show();
+                    $('#btn-'+page).addClass('selected');
+                    $('#'+current_page).hide();
+                    $('#btn-'+current_page).removeClass('selected');
+                    current_page = page;
+                }
+                
+                $(document).ready(function () {
+                    $('#'+current_page).show();
+                    $('#btn-'+current_page).addClass('selected');
+                })
+
+            </script>
+
+            <div tal:condition="email_from_address">
+            <form name="feedback_form"
+                class="enableAutoFocus"
+                id ="materials_form"
+                action=""
+                method="post"
+                tal:define="errors options/state/getErrors;
+                            items_per_page python:10;
+                            total python:len(batch);
+                            pages python:total/items_per_page+(total%items_per_page>0 and 1 or 0);
+                            materials request/material_number|python:[]"
+                tal:attributes="action string:${here/absolute_url}/${template/getId}">
+
+                <!--span tal:replace="total" /-->
+                <!--div metal:use-macro="context/batch_macros/macros/navigation" /-->
+
+                <div class="field"
+                        tal:define="error errors/materials|nothing"
+                        tal:attributes="class python:test(error, 'field error', 'field')">
+
+                    <div tal:condition="error"
+                        tal:content="error">Validation error output</div>
+
+                    <label i18n:translate="">
+                        Select materials
+                    </label>
+
+                    <span class="fieldRequired" title="Required"
+                          i18n:attributes="title title_required;"
+                          i18n:translate="label_required">(Required)</span>
+
+                    <!--div tal:repeat="page python:range(pages)" style="display:none" class="material_product"
+                        tal:attributes="id string:page-$page"-->
+                    <div tal:repeat="page python:range(pages)" class="material_product"
+                        tal:attributes="id string:page-$page">
+                    <table class="listing" width="100%"
+                           summary="Content listing"
+                           i18n:attributes="summary summary_content_listing;">
+                        <thead>
+                            <tr>
+                                <th class="nosort material_item_header_title">&nbsp;<tal:title i18n:translate="listingheader_title"
+                                  >Title</tal:title>&nbsp;</th>
+                                <th class="nosort material_item_header_price">&nbsp;<tal:title i18n:translate="listingheader_price"
+                                  >Price</tal:title>&nbsp;</th>
+                                <th class="nosort material_item_header_number">&nbsp;<tal:title i18n:translate="listingheader_number"
+                                  >Number</tal:title>&nbsp;</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <metal:block tal:define="start_idx python:page*items_per_page;
+                                                     end_idx python:(page+1)*items_per_page">
+                                <metal:entry tal:repeat="idx python:range(start_idx, end_idx)">
+                                    <metal:block tal:condition="python:idx<total">
+                                    <tr metal:define-macro="listitem"
+                                        tal:define="item python:batch[idx];obj item/getObject;">
+                                            <td class="material_item_title">
+                                                <span tal:content="item/pretty_title_or_id">Item Title</span>
+                                                <input name="material_id:list" type="hidden" size="5" value=""
+                                                    tal:attributes="value obj/getId" />
+                                                <input name="material_name:list" type="hidden" size="5" value=""
+                                                    tal:attributes="value item/pretty_title_or_id" />
+                                            </td>
+                                            <td class="material_item_price">
+                                                <span tal:replace="python:'%.2f' %(obj.getPrice())" />
+                                                <span tal:replace="string:EUR" />
+                                                <input name="material_price:list" type="hidden" size="5" value=""
+                                                    tal:attributes="value obj/getPrice" />
+                                            </td>
+                                            <td class="material_item_number">
+                                                <input name="material_number:list" type="text" size="3" value=""
+                                                    tal:condition="python:len(materials)==0" />
+                                                <input name="material_number:list" type="text" size="3" value=""
+                                                    tal:condition="python:len(materials)>0"
+                                                    tal:attributes="value python:materials[idx]" />
+                                            </td>
+                                    </tr>
+                                    </metal:block>
+                                </metal:entry>
+                            </metal:block>
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+
+                <div  tal:condition="python:pages>1" class="listingBar">
+                    <tal:page tal:repeat="page python:range(pages)">
+                        <a  href="javascript://" tal:content="python:page+1"
+                            tal:attributes="id string:btn-page-$page;
+                                            href string:javascript:selectPage('page-$page')"></a>
+                    </tal:page>
+                </div>
+
+                <h2><span i18n:translate="">Your data</span>:</h2>
+                <table width="100%">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <span i18n:translate="">Club / Cooperative</span>
+                            <span class="fieldRequired" title="Required"
+                              i18n:attributes="title title_required;"
+                              i18n:translate="label_required">(Required)</span>
+                        </td>
+                        <td>
+                            <div class="field"
+                                 tal:define="error errors/club|nothing"
+                                 tal:attributes="class python:test(error, 'field error', 'field')">
+                                <div tal:condition="error"
+                                   tal:content="error">Validation error output</div>
+                                <input name="club" type="text" value=""
+                                    tal:attributes="value request/club|nothing" />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td i18n:translate="">Organisation number (if known)</td>
+                        <td>
+                            <div class="field"
+                                 tal:define="error errors/organisation|nothing"
+                                 tal:attributes="class python:test(error, 'field error', 'field')">
+                                <div tal:condition="error"
+                                   tal:content="error">Validation error output</div>
+                                <input name="organisation" type="text" value=""
+                                    tal:attributes="value request/organisation|nothing" />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span i18n:translate="">Full Name</span>
+                            <span class="fieldRequired" title="Required"
+                              i18n:attributes="title title_required;"
+                              i18n:translate="label_required">(Required)</span>
+                        </td>
+                        <td>
+                            <div class="field"
+                                 tal:define="error errors/fullname|nothing"
+                                 tal:attributes="class python:test(error, 'field error', 'field')">
+                                <div tal:condition="error"
+                                   tal:content="error">Validation error output</div>
+                                <input name="fullname" type="text" value=""
+                                    tal:attributes="value request/fullname|nothing" />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td i18n:translate="">Member number (if known)</td>
+                        <td>
+                            <div class="field"
+                                 tal:define="error errors/member_number|nothing"
+                                 tal:attributes="class python:test(error, 'field error', 'field')">
+                                <div tal:condition="error"
+                                   tal:content="error">Validation error output</div>
+                                <input name="member_number" type="text" value=""
+                                    tal:attributes="value request/member_number|nothing" />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span i18n:translate="">Street</span>
+                            <span class="fieldRequired" title="Required"
+                              i18n:attributes="title title_required;"
+                              i18n:translate="label_required">(Required)</span>
+                        </td>
+                        <td>
+                            <div class="field"
+                                 tal:define="error errors/street|nothing"
+                                 tal:attributes="class python:test(error, 'field error', 'field')">
+                                <div tal:condition="error"
+                                   tal:content="error">Validation error output</div>
+                                <input name="street" type="text" value=""
+                                    tal:attributes="value request/street|nothing" />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span i18n:translate="">ZIP, City</span>
+                            <span class="fieldRequired" title="Required"
+                              i18n:attributes="title title_required;"
+                              i18n:translate="label_required">(Required)</span>
+                        </td>
+                        <td>
+                            <div class="field"
+                                 tal:define="error errors/city|nothing"
+                                 tal:attributes="class python:test(error, 'field error', 'field')">
+                                <div tal:condition="error"
+                                   tal:content="error">Validation error output</div>
+                                <input name="city" type="text" value=""
+                                    tal:attributes="value request/city|nothing" />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span i18n:translate="">Phone</span>
+                            <span class="fieldRequired" title="Required"
+                              i18n:attributes="title title_required;"
+                              i18n:translate="label_required">(Required)</span>
+                        </td>
+                        <td>
+                            <div class="field"
+                                 tal:define="error errors/phone|nothing"
+                                 tal:attributes="class python:test(error, 'field error', 'field')">
+                                <div tal:condition="error"
+                                   tal:content="error">Validation error output</div>
+                                <input name="phone" type="text" value=""
+                                    tal:attributes="value request/phone|nothing" />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                    <td>
+                    </td>
+                    <td>
+                    <div class="formControls">
+                       <input class="context"
+                              type="submit"
+                              name="form.button.Send"
+                              value="Send"
+                              i18n:attributes="value label_send;"
+                              />
+                    </div>
+
+                    </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <input type="hidden" name="form.submitted" value="1" />
+            </form>
+            </div>
+
+            </metal:entries>
+        </metal:block>
+
+    </metal:content-core>
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="TT.FischereiverbandLocations">
+
+  <genericsetup:registerProfile
+      name="default"
+      title="Locations"
+      directory="profiles/default"
+      description='Extension profile for the "Locations".'
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+  <genericsetup:importStep
+      name="TT.FischereiverbandLocations.various"
+      title="Custom Theme: miscellaneous import steps"
+      description="Various import steps that are not handled by GS import/export handlers."
+      handler="TT.FischereiverbandLocations.setuphandlers.setupVarious">
+    <depends name="skins"/>
+  </genericsetup:importStep>
+
+</configure>

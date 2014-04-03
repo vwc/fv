@@ -1,0 +1,62 @@
+<div id="portal-footer" tal:define="context_state context/@@plone_context_state;
+                                    actions python:context_state.actions('meta_actions');
+                                    plone_view context/@@plone;
+                                    view nocall:view | nocall: plone_view;
+                                    sl python:plone_view.have_portlets('plone.leftcolumn', view);">
+    <div id="external_link" tal:condition="sl">
+                      <ul tal:define="actions python:context_state.actions('external_link')">
+                          <tal:external_link tal:condition="actions">
+                              <li tal:repeat="action actions"
+                                  tal:attributes="id string:meta_action-${action/id}">
+                                  <a
+                                     href=""
+                                     tal:define="title action/title;
+                                                 id action/id;"
+                                     tal:attributes="href action/url;
+                                                     title title;"
+                                     >
+                                      <img tal:condition="action/icon" src="" tal:attributes="src action/icon;"/>
+                                     </a></li>
+                           </tal:external_link>
+                      </ul>
+    </div>
+	<tal:tabs tal:condition="view/portal_tabs"
+          i18n:domain="plone">
+     <div id="portal-footer-menu">
+	 <ul>
+	        <tal:tabs tal:repeat="tab view/portal_tabs">
+	        	<!--
+	          <li tal:condition="python:tab['id']!='index_html' and tab['id']!='news' and tab['id']!='events' and tab['id']!='Members' and tab['id']!='impressum'"
+	          	  tal:define="klass python:view.selected_portal_tab==tab['id'] and 'selected' or 'plain'"
+	              tal:attributes="id string:portaltab-${tab/id};
+	                              class python:repeat['tab'].end and 'lastItem ' + klass or klass">
+			  -->
+			  <li 
+	          	  tal:define="klass python:view.selected_portal_tab==tab['id'] and 'selected' or 'plain'"
+	              tal:attributes="id string:portaltab-${tab/id};
+	                              class python:repeat['tab'].end and 'lastItem ' + klass or klass">
+	            <a href="" 
+	               tal:content="tab/name"
+	               tal:attributes="href tab/url;
+	                               title tab/description|nothing">
+	            Tab Name
+	            </a></li></tal:tabs>
+                <tal:meta_actions tal:condition="actions">
+                   <li tal:repeat="action actions"
+                    tal:attributes="id string:meta_action-${action/id}">
+                    <a
+                       href=""
+                       tal:define="title action/title;
+                                   id action/id;"
+                       i18n:attributes="title"
+                       i18n:translate=""
+                       tal:content="title"
+                       tal:attributes="href action/url;
+                                       title title;"
+                       >Site action</a></li>
+                </tal:meta_actions>
+	    </ul> 
+	    </div>  
+	</tal:tabs>
+	<div id="portal-footer-bar"></div>
+</div>

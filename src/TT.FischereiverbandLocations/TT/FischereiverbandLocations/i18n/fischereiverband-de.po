@@ -1,0 +1,69 @@
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2010-07-02 09:41+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: de\n"
+"Language-Name: Deutsch\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: plone\n"
+
+#. Default: "Location Area"
+#: ./contents/Location.py:58
+msgid "label_location_area"
+msgstr ""
+
+#. Default: "email"
+#: ./contents/LocationItem.py:40
+msgid "label_location_item_email"
+msgstr "E-Mail"
+
+#. Default: "URL"
+#: ./contents/LocationItem.py:31
+msgid "label_location_item_url"
+msgstr ""
+
+#. Default: "Map Image"
+#: ./contents/Location.py:49
+msgid "label_location_map_image"
+msgstr "Image Map"
+
+#. Default: "Header"
+#: ./contents/Locations.py:33
+msgid "label_locations_header"
+msgstr "Kopfzeile"
+
+#. Default: "Infomation"
+#: ./contents/Locations.py:45
+msgid "label_locations_info"
+msgstr "Information"
+
+#. Default: "Map Image"
+#: ./contents/Locations.py:71
+msgid "label_locations_map_image"
+msgstr "Image Map"
+
+#. Default: "Email"
+#: ./skins/ttfischereiverbandLocations_templates/location_map_view.pt:26
+msgid "listingheader_email"
+msgstr "E-Mail"
+
+#. Default: "Name"
+#: ./skins/ttfischereiverbandLocations_templates/location_map_view.pt:22
+msgid "listingheader_titles"
+msgstr "Mitgliedsorganisation"    
+
+#. Default: "URL"
+#: ./skins/ttfischereiverbandLocations_templates/location_map_view.pt:24
+msgid "listingheader_url"
+msgstr "Website"
+

@@ -1,0 +1,68 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="plone">
+
+<head>
+    <metal:noborder fill-slot="top_slot"
+                 tal:define="dummy python:request.set('disable_border',1)" />
+</head>
+
+<body>
+<metal:javascript_head fill-slot="javascript_head_slot">    <metal:js
+        tal:define="key python:context.FischereiverbandTool.maps_api_key"
+        tal:replace="structure python:'''
+        <script type='text/javascript'>
+            document.write(['<script src=&quot;http:\/\/maps.google.com\/maps?file=api&amp;v=2&amp;key=',%s['%s'],'&quot; type=&quot;text\/javascript&quot;><\/script>'].join(''));
+        </script>
+        ''' % (key, context.portal_url())">
+    </metal:js></metal:javascript_head>
+<metal:main fill-slot="main">
+
+
+   <h1 class="documentFirstHeading"
+        i18n:translate="heading_maps_info">Maps Info </h1>
+
+    <!-- google maps -->
+    <div class="maps_inputs">
+    </div>
+    <div id="map_canvas" style="height:500px;">
+    </div>
+    
+    <script type="text/javascript">
+        function setDirections(toAddress) {            if (GBrowserIsCompatible()) {                var mapElm = document.getElementById("map_canvas");                var map = new GMap2(mapElm);
+                map.addControl(new GLargeMapControl());
+                map.addControl(new GMapTypeControl());                var geocoder = new GClientGeocoder();
+                geocoder.getLatLng(
+                    toAddress,
+                    function(point) {
+                        if (!point) {
+                            alert(toAddress + " not found");
+                        } else {
+                            map.setCenter(point, 13);
+                            var marker = new GMarker(point);
+                            map.addOverlay(marker);
+                            marker.openInfoWindowHtml(toAddress);
+                        }
+                    }
+                );
+
+            }        }
+    </script>
+    <metal:js
+        tal:define="toAddress python:context.FischereiverbandTool.maps_company_address"
+        tal:replace="structure python:'''
+        <script type='text/javascript'>
+            jq(document).ready(function(){ 
+                setDirections('%s');
+            });
+        </script>
+        ''' % (toAddress)">
+    </metal:js>
+
+</metal:main>
+</body>
+</html>

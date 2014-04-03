@@ -1,0 +1,149 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="plone">
+  <head><title></title></head>
+  <body>
+
+    <!-- Location Area Widgets -->
+    <metal:view_macro define-macro="view"
+            tal:define="kssClassesView context/@@kss_field_decorator_view;
+                        getKssClasses nocall:kssClassesView/getKssClassesInlineEditable;">
+        <span metal:define-macro="string-field-view"
+            tal:define="kss_class python:getKssClasses(fieldName,
+                              templateId='widgets/string', macro='string-field-view');"
+            tal:attributes="class kss_class;
+                            id string:parent-fieldname-$fieldName">
+            <span metal:define-slot="inside" 
+                  tal:replace="accessor">string</span>
+        </span>
+    </metal:view_macro>
+
+    <metal:define define-macro="edit">
+      <metal:use use-macro="field_macro | context/widgets/field/macros/edit">
+        <metal:block metal:fill-slot="widget_body"
+            tal:define="localtions python:context.aq_inner.getParentNode();">
+            <script language="JavaScript">
+                jQuery.fn.elementlocation = function() {
+                  var curleft = 0;
+                  var curtop = 0;
+                 
+                  var obj = this;
+                 
+                  do {
+                	curleft += obj.attr('offsetLeft');
+                	curtop += obj.attr('offsetTop');
+                 
+                	obj = obj.offsetParent();
+                  } while ( obj.attr('tagName') != 'BODY' );
+                 
+                 
+                  return ( {x:curleft, y:curtop} );
+                };
+
+                var isRemove = false;
+                var mapLocationX = 0;
+                var mapLocationY = 0;
+                 
+
+                $(document).ready(function () {
+
+    				var location = $('#map_image').elementlocation();
+
+    				mapLocationX = location.x;
+    				mapLocationY = location.y;
+
+    				$('form')[0].onsubmit = function (e) {
+    				    var strCoords = '';
+    				    var poiters = $('.imgPointer');
+    				    var count = poiters.length;
+    				    for (var i=0; i<count; i++) {
+    				        poiter = poiters[i];
+    				        strCoords += parseInt(poiter.style.left)+5 + ', ';
+    				        strCoords += parseInt(poiter.style.top)+5 + ', ';
+    				    }
+
+    				    //strCoords.replace(/,/g,'');   
+    				    if (poiters[0]) {
+    				        strCoords += parseInt(poiters[0].style.left)+5 + ', ';
+    				        strCoords += parseInt(poiters[0].style.top)+5 + ', ';
+    				    }
+
+    				    $('.coords')[0].value = strCoords.substring(0, strCoords.length - 2);
+        				this.submit();
+    				    return false;
+    				};
+                });
+
+                function removePoiter (event) {
+                    var elm = event.currentTarget;
+				    elm.parentNode.removeChild( elm );
+				    isRemove = true;
+				    return false;
+                }
+
+                function point_it(event){
+    				if (isRemove) {isRemove = false; return;}
+    				var x = event.pageX - mapLocationX;
+    				var y = event.pageY - mapLocationY;
+
+    				var elmDiv = document.createElement('div');
+    				elmDiv.className = 'imgPointer';
+    				elmDiv.style.position = 'absolute';
+    				elmDiv.style.top = (y-5) + 'px';
+    				elmDiv.style.left = (x-5) + 'px';
+    				elmDiv.style.height = '10px';
+    				elmDiv.style.width = '10px';
+    				elmDiv.style.background = 'red';
+    				elmDiv.style.cursor = 'pointer';
+
+    				$('#map_image_container').append(elmDiv);
+
+    				elmDiv.onclick = removePoiter;
+    				return false;
+                }
+            </script>
+
+            <div id="map_image_container" onclick="point_it(event)" style="position: relative;"
+                tal:condition="localtions/getMap|nothing"
+                tal:define="map localtions/getMap;
+                            size localtions/getSize;
+                            coords python:value.split(',');">
+                <img tal:replace="structure python: localtions.tag(scale='large', id='map_image', style='cursor:pointer')" src="" alt="" />
+                <tal:coords condition="value" repeat="coordIdx python:range(0, len(coords), 2)">
+                    <!--span tal:replace="coordIdx" /-->
+                    <tal:coord on-error="string:"
+                        define="x python:coords[coordIdx];
+                                y python:coords[coordIdx+1];">
+                        <div class="imgPointer" onclick="removePoiter(event)"
+                            tal:attributes="style string:position:absolute;; width:10px;; height: 10px;; background: red;; cursor: pointer;; top:${y}px;; left:${x}px;;">
+                        </div>
+                    </tal:coord>
+                </tal:coords>
+            </div>
+
+            <input  type="hidden"
+                    name=""
+                    class="blurrable firstToFocus coords"
+                    id=""
+                    value=""
+                    size="30"
+                    tal:attributes="name fieldName;
+                                    id fieldName;
+                                    value value;
+                                    size widget/size;"
+                    />
+
+        </metal:block>
+      </metal:use>
+    </metal:define>
+
+    <div metal:define-macro="search">
+      <div metal:use-macro="context/widgets/string/macros/edit">
+      </div>
+    </div>
+
+  </body>
+
+</html>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<object name="portal_factory" meta_type="Plone Factory Tool">
+    <factorytypes>
+        <type portal_type="Nachrichten"/> 
+        <type portal_type="NachrichtenItem"/>
+        <type portal_type="Termine"/>
+        <type portal_type="TermineItem"/>
+    </factorytypes>
+</object>

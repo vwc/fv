@@ -1,0 +1,5 @@
+<object name="portal_types" meta_type="Plone Types Tool">
+    <object name="LocationItem" meta_type="Factory-based Type Information with dynamic views"/>
+    <object name="Location" meta_type="Factory-based Type Information with dynamic views"/>
+    <object name="Locations" meta_type="Factory-based Type Information with dynamic views"/>
+</object>

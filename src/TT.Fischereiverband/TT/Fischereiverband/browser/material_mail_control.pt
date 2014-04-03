@@ -1,0 +1,35 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="plone">
+
+<head>
+    <metal:noborder fill-slot="top_slot"
+                 tal:define="dummy python:request.set('disable_border',1)" />
+</head>
+
+<body>
+<metal:main fill-slot="main"
+    tal:define="email_address python:context.FischereiverbandTool.materials_mail">
+    <h1 class="documentFirstHeading"
+        i18n:translate="heading_material_mail_control">List of email which receive material order</h1>
+    <table class="listing">
+        <form method="post" action="request/URL"
+            tal:attributes="action string:.">
+        <tr>
+            <td i18n:translate="">Email list: </td>
+            <td><input size="60" name="material_mail" value="" style="height:25px;"
+                tal:attributes="value email_address" /></td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td><br /><input type="submit" name="mail_control_submit:method" value="Save" /></td>
+        </tr>
+        </form>
+    </table>
+</metal:main>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xml:lang="en" lang="en"
+      i18n:domain="plone"
+      metal:use-macro="here/main_template/macros/master">
+ <head>
+    <metal:javascript fill-slot="javascript_head_slot">
+      <script src="jquery.uploadify.js"
+              type="text/javascript"
+              tal:attributes="src string:$portal_url/jquery.uploadify.js">
+      </script>
+      <script src="jquery.uploadify.js"
+              type="text/javascript"
+              tal:attributes="src string:$portal_url/swfobject.js">
+      </script>
+    </metal:javascript>
+  </head>
+
+  <body>
+    <div metal:fill-slot="main">
+     <!-- fieldset id="uploadify">
+        <legend>Upload</legend>
+        <div id="uploader"></div>
+        <hr />
+        <a id="uploadify-upload"
+           class="context"
+           href="javascript:jq('#uploader').uploadifyUpload();">Upload Files</a>
+        <a id="uploadify-clear-queue"
+           class="context"
+           href="javascript:jq('#uploader').uploadifyClearQueue();">Clear Queue</a>
+      </fieldset -->
+      <div id="uploadify">                  
+        <span i18n:translate="label_upload_picture">Upload Pictures </span>                    
+        <div id="uploader"> </div>
+      </div> 
+      <div id="upload_button" >
+      <a id="uploadify-upload"
+           class="context"
+           href="javascript:jq('#uploader').uploadifyUpload();"
+           i18n:translate="label_upload">Upload</a>
+      <a id="uploadify-clear-queue"
+           class="context"
+           href="javascript:jq('#uploader').uploadifyClearQueue();"
+           i18n:translate="label_clear_queue">Clear Queue</a>
+      </div>                        
+      <div class="upload-folder-listing">
+        <metal:block use-macro="context/folder_listing/macros/listing">
+        </metal:block>
+      </div>
+      <script type="text/javascript"
+              tal:content="structure context/@@upload_initialize">
+      </script>
+     <div class="visualClear"><!-- --></div>
+    </div>
+
+  </body>
+</html>
+

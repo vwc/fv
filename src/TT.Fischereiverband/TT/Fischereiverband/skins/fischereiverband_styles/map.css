@@ -1,0 +1,94 @@
+.locations-map {
+    float:right;
+    width:50%;
+}
+
+table#location-listing {
+    width:100%;
+    text-align: center !important;
+
+}
+table#location-listing th {
+	color: #666;
+	border: 0.1em solid #e7e7e7;
+	border-style: solid none none;
+	font-weight:normal;
+    padding:0;
+    vertical-align:middle;
+}
+
+table#location-listing td {
+    text-align: center;
+    vertical-align:middle;
+} 
+
+table#location-listing tbody tr.odd td {
+    background:none !important;
+} 
+table#location-listing tbody tr.odd {
+    background:none !important;
+}
+table#location-listing thead tr > th,
+table#location-listing tbody tr > td {
+    border:1px solid #A3A3A3;
+}
+table#location-listing thead tr > th {
+    color:#F09E00;
+    font-size:14px;
+}
+
+table#location-listing thead tr > th > span {
+    background:url("nav-1-0-selected.png") no-repeat scroll left center transparent;
+    padding-left:50px;
+    margin-right:25px;
+}
+
+table#location-listing a:link {
+    color:#000;
+}
+
+table#location-listing a {
+        font-size:12px;
+}
+.location-url a:visited,
+table#location-listing a:hover{
+   color:#F09E00 !important; 
+}
+table#location-listing a:visited {
+    color:#464646;
+}
+
+td.location-url a ,
+#back-to-parent a {
+   text-decoration: underline;
+}
+
+#back-to-parent {
+    float:right;
+    margin-top:25px;
+}
+#back-to-parent span {
+    background:url("arrow-more.png") no-repeat scroll left center transparent;
+    padding-left:13px;
+}
+
+#back-to-parent a:hover {
+    color:#F09E00 !important;
+}
+    
+#back-to-parent a {
+    font-size:14px;
+}
+
+.mitgliedsorganisation {
+    text-align:left !important;
+    padding-left:5px;
+}
+
+.mitgliedsorganisation span{
+    padding-left:5px;
+}
+
+.organisatio-icon {
+    margin-top:3px;
+}
