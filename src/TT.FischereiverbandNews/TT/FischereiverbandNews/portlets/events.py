@@ -19,24 +19,31 @@ from plone.app.portlets.portlets import base
 
 from TT.FischereiverbandNews.utils import *
 
+
 class IEventsPortlet(IPortletDataProvider):
 
-    count = schema.Int(title=_(u'Number of items to display'),
-                       description=_(u'How many items to list.'),
-                       required=True,
-                       default=10)
+    count = schema.Int(
+        title=_(u'Number of items to display'),
+        description=_(u'How many items to list.'),
+        required=True,
+        default=10
+    )
 
-    state = schema.Tuple(title=_(u"Workflow state"),
-                         description=_(u"Items in which workflow state to show."),
-                         default=('published', ),
-                         required=True,
-                         value_type=schema.Choice(
-                             vocabulary="plone.app.vocabularies.WorkflowStates")
-                         )
-                         
-    forChildren = schema.Bool(title=_(u'For children'),
-                        description=_(u'If selected, the children can see this content'),
-                        default=False)
+    state = schema.Tuple(
+        title=_(u"Workflow state"),
+        description=_(u"Items in which workflow state to show."),
+        default=('published', ),
+        required=True,
+        value_type=schema.Choice(
+            vocabulary="plone.app.vocabularies.WorkflowStates")
+    )
+
+    forChildren = schema.Bool(
+        title=_(u'For children'),
+        description=_(u'If selected, the children can see this content'),
+        default=False
+    )
+
 
 class Assignment(base.Assignment):
     implements(IEventsPortlet)
@@ -50,6 +57,7 @@ class Assignment(base.Assignment):
     def title(self):
         return _(u"Events")
 
+
 class Renderer(base.Renderer):
 
     _template = ViewPageTemplateFile('events.pt')
@@ -57,11 +65,14 @@ class Renderer(base.Renderer):
     def __init__(self, *args):
         base.Renderer.__init__(self, *args)
 
-        portal_state = getMultiAdapter((self.context, self.request), name=u'plone_portal_state')
+        portal_state = getMultiAdapter((self.context, self.request),
+                                       name=u'plone_portal_state')
+        self.anonymous = portal_state.anonymous()
         self.navigation_root_url = portal_state.navigation_root_url()
         self.portal = portal_state.portal()
         self.navigation_root_path = portal_state.navigation_root_path()
-        self.navigation_root_object = getNavigationRootObject(self.context, self.portal)
+        self.navigation_root_object = getNavigationRootObject(self.context,
+                                                              self.portal)
 
     #@ram.cache(render_cachekey)
     def render(self):
@@ -69,7 +80,9 @@ class Renderer(base.Renderer):
 
     @property
     def available(self):
-        return len(self._data())
+        return not self.anonymous and \
+            self.data.count > 0 and \
+            len(self._data())
 
     def published_events(self):
         return self._data()
@@ -96,19 +109,19 @@ class Renderer(base.Renderer):
             'previous' in self.navigation_root_object['events'].objectIds()):
             return '%s/events/previous' % self.navigation_root_url
         return None
-        
+
     def getDatumFomat(self, dateTime):
         return dateTimeToString(dateTime)
-        
+
     def getTypeObject(self, object):
         return getTypeObject(object)
-        
+
     def checkForChildren(self):
         t = self.getTypeObject(self.context)
         if t=='Termine' or t=='TermineItem':
             return self.context.getForChildren()
         return False
-        
+
     def getViewMoreLink(self):
         context = aq_inner(self.context)
         catalog = getToolByName(context, 'portal_catalog')
@@ -131,11 +144,11 @@ class Renderer(base.Renderer):
         state = self.data.state
         path = self.navigation_root_path
         results = catalog(portal_type='TermineItem',
-                       review_state=state,
-                       path=path,
-                       sort_on='start',
-                       sort_order='ascending')
-                       
+                          review_state=state,
+                          path=path,
+                          sort_on='start',
+                          sort_order='ascending')
+
         if self.data.forChildren:
             results = [obj for obj in results if obj.getObject().getForChildren()==self.data.forChildren]
         return results[0:limit]

@@ -28,7 +28,7 @@ from zope import interface
 from zope import component
 
 from zope.filerepresentation.interfaces import IFileFactory
-from zope.app.container.interfaces import INameChooser
+from zope.container.interfaces import INameChooser
 from plone.i18n.normalizer.interfaces import IIDNormalizer
 
 from Products.CMFPlone import utils as ploneutils
@@ -55,7 +55,8 @@ class UploadingCapableFileFactory(object):
 
         normalizer = component.getUtility(IIDNormalizer)
         chooser = INameChooser(self.context)
-        newid = chooser.chooseName(normalizer.normalize(name), self.context.aq_parent)
+        newid = chooser.chooseName(normalizer.normalize(name),
+                                   self.context.aq_parent)
 
         # otherwise I get ZPublisher.Conflict ConflictErrors
         # when uploading multiple files
