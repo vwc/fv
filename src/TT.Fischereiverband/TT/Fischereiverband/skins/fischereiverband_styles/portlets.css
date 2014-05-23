@@ -53,7 +53,7 @@ dl.portletError dd {
     font-family:Helvetica;
     font-size:11px;
     padding:25px 0 0;
-    min-height:22px;
+    min-height:40px;
 }
 
 
@@ -423,6 +423,7 @@ dl.portletEvents  > dd.even > .portletEventItemDate {
     width:60%;
     float:left;
 
+
 }
 dl.portletEvents  > dd.even > .portletEventItemTitle {
     border-right: 1px solid #f09e00;    
@@ -432,7 +433,7 @@ dl.portletEvents  > dd.odd > .portletEventItemTitle {
     border-right: 1px solid #ffffff;    
 }
 dl.portletEvents > dd.portletItem a {
-    min-height:22px;
+    min-height:45px;
     margin-top:-5px;
     padding-top:5px;
 }
