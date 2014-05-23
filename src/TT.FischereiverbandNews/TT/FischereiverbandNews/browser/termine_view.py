@@ -45,8 +45,7 @@ class TermineView(BrowserView):
         
         # Query's arguments default
         q = {'portal_type'  : 'TermineItem', 
-             'sort_on'      : 'effective',
-             'sort_order'   : 'reverse'}
+             'sort_on'      : 'start'}
              
         # review_state
         if review_state: q['review_state'] = review_state
