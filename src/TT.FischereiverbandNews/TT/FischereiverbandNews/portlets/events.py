@@ -78,11 +78,11 @@ class Renderer(base.Renderer):
     def render(self):
         return xhtml_compress(self._template())
 
-    @property
-    def available(self):
-        return not self.anonymous and \
-            self.data.count > 0 and \
-            len(self._data())
+    #@property
+    #def available(self):
+    #    return not self.anonymous and \
+    #        self.data.count > 0 and \
+    #        len(self._data())
 
     def published_events(self):
         return self._data()
